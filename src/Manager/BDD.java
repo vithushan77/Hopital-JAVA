@@ -1,10 +1,10 @@
-package Controller;
+package Manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class manager {
+public class BDD {
 	public static void main(String[] args) {
 				
 
@@ -30,4 +30,3 @@ public class manager {
 		 }
 		}
 }
-
