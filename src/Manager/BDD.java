@@ -25,7 +25,7 @@ public class BDD {
 		 }
 		 // Si on arrive pas à se connetcer on attrape l'erreur pour l'afficher ensuite
 		 catch (SQLException e) {
-		 System.out.println("Une erreur est survenue lors de la connexion à la base de données");
+		 System.out.println("Une erreur est survenue lors de la connexion à la base de donn�es");
 		 e.printStackTrace();
 		 }
 		}
