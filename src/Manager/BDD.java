@@ -14,7 +14,7 @@ public class BDD {
 		String user="root:8889";
 		String password="root";
 		try {
-		 // On cr√©√© une variable cnx de type Connection
+		 // On crÈe une variable cnx de type Connection
 		 // cnx contiendra la connexion ‡ la base de donn√©es
 		 Connection cnx = DriverManager.getConnection(url,user, password);
 		 System.out.println("Etat de la connexion :");
