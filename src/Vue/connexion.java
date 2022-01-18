@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class connexion {
 
@@ -56,12 +57,13 @@ public class connexion {
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(168, 70, 61, 16);
+		JLabel lblNewLabel = new JLabel("mail/ identifiant");
+		lblNewLabel.setBounds(154, 70, 103, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(168, 153, 61, 16);
+		JLabel lblNewLabel_1 = new JLabel("Mot de passe");
+		lblNewLabel_1.setBackground(new Color(0, 191, 255));
+		lblNewLabel_1.setBounds(151, 150, 103, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 	}
 }
