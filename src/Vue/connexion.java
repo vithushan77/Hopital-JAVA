@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class connexion {
 
@@ -43,27 +47,44 @@ public class connexion {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(141, 103, 130, 26);
+		textField.setBounds(151, 27, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(141, 178, 130, 26);
+		textField_1.setBounds(151, 77, 130, 26);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("mail/ identifiant");
-		lblNewLabel.setBounds(154, 70, 103, 16);
+		JLabel lblNewLabel = new JLabel("Mail/ Identifiant :");
+		lblNewLabel.setBounds(19, 32, 120, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Mot de passe");
+		JLabel lblNewLabel_1 = new JLabel("Mot de passe :");
 		lblNewLabel_1.setBackground(new Color(0, 191, 255));
-		lblNewLabel_1.setBounds(151, 150, 103, 16);
+		lblNewLabel_1.setBounds(19, 82, 103, 16);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnNewButton = new JButton("Valider");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(293, 143, 117, 29);
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Mot de passe oublié");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(6, 143, 159, 29);
+		frame.getContentPane().add(btnNewButton_1);
 	}
 }
