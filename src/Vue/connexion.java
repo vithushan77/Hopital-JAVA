@@ -52,10 +52,11 @@ public class connexion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
+		textField = new JTextField("caca");
 		textField.setBounds(151, 27, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(151, 77, 130, 26);
@@ -74,6 +75,8 @@ public class connexion {
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				admin ad = new admin();
+				ad.run();
 			}
 		});
 		btnNewButton.setBounds(293, 143, 117, 29);

@@ -18,8 +18,6 @@ public class admin {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					admin window = new admin();
@@ -28,8 +26,8 @@ public class admin {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
+	
+	
 
 	/**
 	 * Create the application.
@@ -44,11 +42,11 @@ public class admin {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(0, 191, 255));
-		frame.setBounds(100, 100, 1000, 500);
+		frame.setBounds(100, 100, 900, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("RDV");
 		btnNewButton.setBackground(new Color(0, 191, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -57,6 +55,19 @@ public class admin {
 		btnNewButton.setIcon(new ImageIcon("../Hopital-Java/src/img/rdv.jpeg"));
 		btnNewButton.setBounds(24, 22, 326, 211);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Hopitalisation");
+		btnNewButton_1.setBounds(524, 22, 326, 211);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Creé dosier patient");
+		btnNewButton_2.setBounds(24, 255, 326, 211);
+		frame.getContentPane().add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("voir des médecins");
+		btnNewButton_3.setBounds(524, 255, 326, 211);
+		frame.getContentPane().add(btnNewButton_3);
 	}
+
 
 }
