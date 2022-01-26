@@ -27,7 +27,8 @@ public class Manager {
 		String user="root";
 		String password="root";
 		try {
-			cnx = DriverManager.getConnection(url,user, password);		
+			cnx = DriverManager.getConnection(url,user, password);
+			System.out.println("Etat de la connexion : ");
 			System.out.println(cnx.isClosed()?"fermée":"ouverte");
 		}
 		catch (SQLException e) {
