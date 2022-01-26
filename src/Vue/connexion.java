@@ -13,11 +13,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
+
+import Manager.Manager;
+import Model.Utilisateur;
+
 public class connexion {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
+	private boolean test;
 
 	/**
 	 * Launch the application.
@@ -52,7 +57,7 @@ public class connexion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField("caca");
+		textField = new JTextField();
 		textField.setBounds(151, 27, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -75,8 +80,15 @@ public class connexion {
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Utilisateur ut = new Utilisateur();
+				ut.setMail(textField.getText());
+				ut.setMdp(textField_1.getText());
+				Manager ma = new Manager();
+				test = ma.connexionuser(ut);
+				if(test) {
 				admin ad = new admin();
 				ad.run();
+			}
 			}
 		});
 		btnNewButton.setBounds(293, 143, 117, 29);

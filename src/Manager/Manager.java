@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import Model.Utilisateur;
+
 public class Manager {
 	private int r1;
 	private ResultSet Nomfilm;
@@ -21,7 +23,7 @@ public class Manager {
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
 		String password="root";
 		try {
@@ -36,7 +38,7 @@ public class Manager {
 		return cnx;
 	}
 
-	public void connexionuser() {
+	public boolean connexionuser(Utilisateur ut) {
 		
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -46,7 +48,7 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
-		String re2 = "SELECT email FROM fidelite WHERE email = '" + co.getEmail() + "'" AND mdp = '" + textField_1.getText() +"'";
+		String re2 = "SELECT * FROM utilisateur WHERE mail = '" + ut.getMail() + "'AND mdp = '" + ut.getMdp() + '"';
 		System.out.println(re2);
 
 		try {
@@ -55,21 +57,19 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		try {
-			if (!r2.next()) { /* Si le ResultSet est vide alors exist prend la valeur de 0, on aurait pu faire un boolean également */
-
-				exist = 0;
-			}
-			else {
-				exist = 1; /* Si le ResultSet n'est pas vide alors exist prend la valeur de 1, on aurait pu faire un boolean également */
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(ut.getMdp().equals(re2)) {
+			
+			return true;
+			
+		}
+		else {
+			return false;
 		}
 		
-		return exist;
+
+	
+		
+
 	}
 	}
 
