@@ -66,11 +66,6 @@ public class Manager {
 		else {
 			return false;
 		}
-		
-
-	
-		
-
 	}
 	
 	
@@ -92,10 +87,22 @@ public class Manager {
 			// TODO Auto-generated catch block
 			System.out.println("hello");
 		//	e.printStackTrace();
+			}
 		}
-		
+	
+	public void VerifEtatCompte(boolean etatCompte) {
+		if(etatCompte) {
+			/*
+			 * Si l'état du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
+			 * en fonction de son rôle/status
+			 */
+			System.out.println("Bienvenue");
+		} else {
+			System.out.println("Votre compte est désactivé. Veuillez contacter l'administrateur");
+		}
 	}
-	}
+	
+}
 
 
 
