@@ -4,9 +4,9 @@ public class CommandeStock {
 	private int id;
 	private int idGestionnaire;
 	private int nombreStock;
-	private text libelle;
+	private String libelle;
 	
-	CommandeStock(int id, int idGestionnaire, int nombreStock, text libelle) {
+	CommandeStock(int id, int idGestionnaire, int nombreStock, String libelle) {
 		this.id = id;
 		this.idGestionnaire = idGestionnaire;
 		this.nombreStock = nombreStock;
@@ -19,7 +19,7 @@ public class CommandeStock {
 	public void setIdGestionnaire(int idGestionnaire) {this.idGestionnaire = idGestionnaire;}
 	public int getNombreStock() {return this.nombreStock;}
 	public void setNombreStock(int nombreStock) {this.nombreStock = nombreStock;}
-	public text getLibelle() {return this.libelle;}
+	public String getLibelle() {return this.libelle;}
 	public void setLibelle(String libelle) {this.libelle = libelle;}
 	
 }
