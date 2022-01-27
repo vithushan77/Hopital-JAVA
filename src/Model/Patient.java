@@ -15,16 +15,9 @@ public class Patient {
 		this.idSecuriteSocial = idSecuriteSocial;
 	}
 
-	public int getId() {
-		return this.id_patient;
-	}
-
-	public void setId(int id) {
-		this.id_patient = id_patient;
-	} 
-	public String getNomPatient() {
-		return this.nomPatient;
-	}
+	public int getIdPatient() {return this.id_patient;}
+	public void setIdPatient(int id_patient) {this.id_patient = id_patient;} 
+	public String getNomPatient() {return this.nomPatient;}
 	public void setNomPatient(String nomPatient) {this.nomPatient = nomPatient;}
 	public String getPrenomPatient() {return this.nomPatient;}
 	public void setPrenomPatient(String prenomPatient) {this.prenomPatient = prenomPatient;}
