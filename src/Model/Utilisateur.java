@@ -7,7 +7,7 @@ public class Utilisateur {
 	private String mail;
 	private String mdp;
 	private String status;
-	private String etatCompte;
+	private Boolean etatCompte;
 	
 	
 	public int getId() {
@@ -31,7 +31,7 @@ public class Utilisateur {
 		}
 	
 	public void setPrenom(String prenom) {
-		this.nom = prenom;
+		this.prenom = prenom;
 		}
 	
 	public String getMail() {
@@ -59,13 +59,13 @@ public class Utilisateur {
 		this.status = status;
 		}
 	
-	public String getEtatCompte() {
+	public Boolean getEtatCompte() {
 		
 	
 		return this.etatCompte;
 		}
 	
-	public void setEtatCompte(String etatCompte) {
+	public void setEtatCompte(Boolean etatCompte) {
 		this.etatCompte = etatCompte;
 		}
 	
