@@ -9,9 +9,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
+import Manager.Manager;
 import Model.Utilisateur;
 
 import java.awt.Font;
+import java.awt.Color;
 
 public class ajoututilisateur {
 
@@ -33,9 +35,9 @@ public class ajoututilisateur {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}});
 			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -49,13 +51,14 @@ public class ajoututilisateur {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(0, 255, 255));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Ajout utilisateur");
 		lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(lblNewLabel.getFont().getStyle() | Font.ITALIC));
-		lblNewLabel.setBounds(161, 19, 61, 16);
+		lblNewLabel.setBounds(161, 19, 119, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nom");
@@ -71,7 +74,7 @@ public class ajoututilisateur {
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Mot de passe");
-		lblNewLabel_4.setBounds(29, 173, 61, 16);
+		lblNewLabel_4.setBounds(29, 173, 83, 16);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		textField_nom = new JTextField();
@@ -102,11 +105,17 @@ public class ajoututilisateur {
 				ajut.setPrenom(textField_prenom.getText());
 				ajut.setMail(textField_mail.getText());
 				ajut.setMdp(textField_mdp.getText());
+				
+				Manager man = new Manager();
+				man.connexionbdd();
+				man.inscription(ajut);
 
 			}
 		});
 		btnNewButton_3.setBounds(296, 225, 117, 29);
 		frame.getContentPane().add(btnNewButton_3);
 	}
+
+
 
 }

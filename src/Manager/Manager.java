@@ -83,6 +83,8 @@ public class Manager {
 
 		try {
 			r1 = stm1.executeUpdate(re3);
+			System.out.println("hello1");
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("hello");
@@ -93,12 +95,12 @@ public class Manager {
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
 			/*
-			 * Si l'état du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-			 * en fonction de son rôle/status
+			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
+			 * en fonction de son rï¿½le/status
 			 */
 			System.out.println("Bienvenue");
 		} else {
-			System.out.println("Votre compte est désactivé. Veuillez contacter l'administrateur");
+			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
 	
