@@ -7,7 +7,7 @@ public class Utilisateur {
 	private String mail;
 	private String mdp;
 	private String status;
-	private boolean etatCompte;
+	private String etatCompte;
 	
 	
 	public int getId() {
@@ -54,15 +54,18 @@ public class Utilisateur {
 		return this.status;
 		}
 	
+
 	public void setStatus(String status) {
 		this.status = status;
 		}
 	
-	public boolean getEtatCompte() {
+	public String getEtatCompte() {
+		
+	
 		return this.etatCompte;
 		}
 	
-	public void setEtatCompte(boolean etatCompte) {
+	public void setEtatCompte(String etatCompte) {
 		this.etatCompte = etatCompte;
 		}
 	

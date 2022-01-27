@@ -61,6 +61,12 @@ public class admin {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Creé dosier patient");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ajoututilisateur ajtu = new ajoututilisateur();
+				ajtu.run();
+			}
+		});
 		btnNewButton_2.setBounds(24, 255, 326, 211);
 		frame.getContentPane().add(btnNewButton_2);
 		

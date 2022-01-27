@@ -72,6 +72,29 @@ public class Manager {
 		
 
 	}
+	
+	
+	public void inscription(Utilisateur ajut){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm1 = null;
+		try {
+			stm1 = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ ajut.getMdp() +"', 'patient,'1')";
+		System.out.println(re3);
+
+		try {
+			r1 = stm1.executeUpdate(re3);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("hello");
+		//	e.printStackTrace();
+		}
+		
+	}
 	}
 
 
