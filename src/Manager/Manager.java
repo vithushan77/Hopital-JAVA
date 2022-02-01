@@ -125,10 +125,7 @@ public class Manager {
 			} else {
 				System.out.println("Une erreur est survenue lors de la modification. Veuillez r�essayer ult�rieurement.");
 			}
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 		}
 	}
 	

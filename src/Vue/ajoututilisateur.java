@@ -1,5 +1,6 @@
 package Vue;
 
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
