@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class admin {
 
@@ -51,11 +53,15 @@ public class admin {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(106, 27, 205, 40);
+		btnNewButton.setBounds(180, 50, 205, 40);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Ajout utilisateur");
-		btnNewButton_1.setBounds(106, 94, 205, 40);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(180, 102, 205, 40);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Hopitalisation");
@@ -65,12 +71,32 @@ public class admin {
 				ajtu.run();
 			}
 		});
-		btnNewButton_2.setBounds(106, 153,  205, 40);
+		btnNewButton_2.setBounds(180, 154,  205, 40);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Voit de medecin");
-		btnNewButton_3.setBounds(106, 208, 205, 40);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_3.setBounds(180, 200, 205, 40);
 		frame.getContentPane().add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Déconnexion");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_4.setBounds(17, 6, 117, 29);
+		frame.getContentPane().add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("Crée dosier patient");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_5.setBounds(17, 72, 151, 70);
+		frame.getContentPane().add(btnNewButton_5);
 		
 		
 	}

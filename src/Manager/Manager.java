@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import Model.Utilisateur;
 
 public class Manager {
@@ -24,9 +23,9 @@ public class Manager {
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -83,9 +82,8 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		String securePassword = BCrypt.hashpw(ajut.getMdp(), BCrypt.gensalt(10));
-		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ securePassword +"', '"+ajut.getStatus()+"', '"+ajut.getEtatCompte()+"')";
+		}	
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ ajut.getMdp() +"', 'patient','1')";
 		System.out.println(re3);
 
 		try {
@@ -127,6 +125,10 @@ public class Manager {
 			} else {
 				System.out.println("Une erreur est survenue lors de la modification. Veuillez r�essayer ult�rieurement.");
 			}
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		}
 	}
 	
