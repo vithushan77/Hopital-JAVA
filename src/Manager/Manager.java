@@ -129,6 +129,30 @@ public class Manager {
 		}
 	}
 	
+	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
+		String sql = "INSERT INTO medicaments(nomMedicament, quantite, toxicite) VALUES(?,?,?)";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nomMedicament);
+		pstm.setInt(2, quantite);
+		pstm.setString(3, toxicite);
+		boolean result = pstm.execute();
+		
+		if(result) {
+			System.out.println("Ajout du médicament effectué avec succès");
+		} else {
+			System.out.println("Erreur lors de l'ajout");
+		}
+	}
+	
+	public void SupprimerMedicaments(int id, String nomMedicament, int quantite, String toxicite) throws SQLException {
+		String sql = "DELETE FROM medicaments WHERE id = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		boolean result = pstm.execute();
+	}
+	
+	
+	
 }
 
 
