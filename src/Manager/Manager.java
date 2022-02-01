@@ -5,6 +5,7 @@ package Manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -103,6 +104,26 @@ public class Manager {
 			System.out.println("Bienvenue");
 		} else {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
+		}
+	}
+	
+	public void ModifierProfil(String nom, String prenom, String mail) throws SQLException {
+		String sql = "SELECT * FROM utilisateur";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			sql = "UPDATE utilisateur SET nom='?', prenom='?', mail='?'";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nom);
+			pstm.setString(2, prenom);
+			pstm.setString(3, mail);
+			
+			int rowsUpdated = pstm.executeUpdate();
+			if(rowsUpdated > 0) {
+				System.out.println("Les informations de votre profil ont bien été modifié");
+			} else {
+				System.out.println("Une erreur est survenue lors de la modification. Veuillez réessayer ultérieurement.");
+			}
 		}
 	}
 	
