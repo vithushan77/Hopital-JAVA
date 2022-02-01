@@ -9,16 +9,8 @@ public class Utilisateur {
 	private String status;
 	private Boolean etatCompte;
 	
-	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status, Boolean etatCompte) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.mail = mail;
-		this.mdp = mdp;
-		this.status = status;
-		this.etatCompte = etatCompte;
-	}
+
+	
 
 	public int getId() {
 		return this.id;

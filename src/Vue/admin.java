@@ -59,6 +59,8 @@ public class admin {
 		JButton btnNewButton_1 = new JButton("Ajout utilisateur");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ajoututilisateur ajtu = new ajoututilisateur();
+				ajtu.run();
 			}
 		});
 		btnNewButton_1.setBounds(180, 102, 205, 40);
@@ -67,8 +69,6 @@ public class admin {
 		JButton btnNewButton_2 = new JButton("Hopitalisation");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ajoututilisateur ajtu = new ajoututilisateur();
-				ajtu.run();
 			}
 		});
 		btnNewButton_2.setBounds(180, 154,  205, 40);
