@@ -107,7 +107,6 @@ public class Manager {
 			System.out.println("Bienvenue");
 		} else {
 			System.out.println("Votre compte est dÃ¯Â¿Â½sactivÃ¯Â¿Â½. Veuillez contacter l'administrateur");
-<<<<<<< Updated upstream
 		}
 	}
 	
@@ -124,12 +123,10 @@ public class Manager {
 			
 			int rowsUpdated = pstm.executeUpdate();
 			if(rowsUpdated > 0) {
-				System.out.println("Les informations de votre profil ont bien été modifié");
+				System.out.println("Les informations de votre profil ont bien ï¿½tï¿½ modifiï¿½");
 			} else {
-				System.out.println("Une erreur est survenue lors de la modification. Veuillez réessayer ultérieurement.");
+				System.out.println("Une erreur est survenue lors de la modification. Veuillez rï¿½essayer ultï¿½rieurement.");
 			}
-=======
->>>>>>> Stashed changes
 		}
 	}
 	
