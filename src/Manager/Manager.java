@@ -107,6 +107,7 @@ public class Manager {
 			System.out.println("Bienvenue");
 		} else {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
+<<<<<<< Updated upstream
 		}
 	}
 	
@@ -127,6 +128,8 @@ public class Manager {
 			} else {
 				System.out.println("Une erreur est survenue lors de la modification. Veuillez r�essayer ult�rieurement.");
 			}
+=======
+>>>>>>> Stashed changes
 		}
 	}
 	
