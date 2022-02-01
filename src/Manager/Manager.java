@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 import Model.Utilisateur;
 
@@ -151,6 +153,22 @@ public class Manager {
 		boolean result = pstm.execute();
 	}
 	
+	public void AfficherUtilisateurs() throws SQLException {
+		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			ArrayList<Object> listeUtilisateurs = new ArrayList<Object>();
+			listeUtilisateurs.add(rs.getString("nom"));
+			listeUtilisateurs.add(rs.getString("prenom"));
+			listeUtilisateurs.add(rs.getString("mail"));
+			listeUtilisateurs.add(rs.getString("role"));
+			
+			for(int i = 0; i < listeUtilisateurs.size(); i++) {
+				System.out.println(listeUtilisateurs.get(i));
+			}
+		}
+	}
 	
 	
 }
