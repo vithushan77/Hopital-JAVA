@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import Model.Utilisateur;
 
 public class Manager {
@@ -77,8 +79,9 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}	
-		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ ajut.getMdp() +"', 'patient','1')";
+		}
+		String securePassword = BCrypt.hashpw(ajut.getMdp(), BCrypt.gensalt(10));
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ securePassword +"', '"+ajut.getStatus()+"', '"+ajut.getEtatCompte()+"')";
 		System.out.println(re3);
 
 		try {
