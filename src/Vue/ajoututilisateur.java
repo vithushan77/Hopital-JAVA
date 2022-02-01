@@ -14,6 +14,7 @@ import Model.Utilisateur;
 
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JPasswordField;
 
 public class ajoututilisateur {
 
@@ -21,13 +22,12 @@ public class ajoututilisateur {
 	private JTextField textField_nom;
 	private JTextField textField_prenom;
 	private JTextField textField_mail;
-	private JTextField textField_mdp;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+
 			public void run() {
 				try {
 					ajoututilisateur window = new ajoututilisateur();
@@ -35,7 +35,6 @@ public class ajoututilisateur {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}});
 			}
 	
 
@@ -91,11 +90,9 @@ public class ajoututilisateur {
 		textField_mail.setBounds(150, 130, 130, 26);
 		frame.getContentPane().add(textField_mail);
 		textField_mail.setColumns(10);
-		
-		textField_mdp = new JTextField();
-		textField_mdp.setBounds(150, 168, 130, 26);
-		frame.getContentPane().add(textField_mdp);
-		textField_mdp.setColumns(10);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(151, 168, 130, 26);
+		frame.getContentPane().add(passwordField);
 		
 		JButton btnNewButton_3 = new JButton("Ajouter");
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -104,7 +101,7 @@ public class ajoututilisateur {
 				ajut.setNom(textField_nom.getText());
 				ajut.setPrenom(textField_prenom.getText());
 				ajut.setMail(textField_mail.getText());
-				ajut.setMdp(textField_mdp.getText());
+				ajut.setMdp(passwordField.getText());
 				
 				Manager man = new Manager();
 				man.connexionbdd();
@@ -114,8 +111,7 @@ public class ajoututilisateur {
 		});
 		btnNewButton_3.setBounds(296, 225, 117, 29);
 		frame.getContentPane().add(btnNewButton_3);
+		
+
 	}
-
-
-
 }
