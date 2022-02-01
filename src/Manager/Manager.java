@@ -8,11 +8,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.JOptionPane;
-
 import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import Model.Utilisateur;
 
 public class Manager {
@@ -23,19 +20,20 @@ public class Manager {
 	private ResultSet r3;
 	public int exist;
 	public int admin;
+	boolean co = false;
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
-			System.out.println(cnx.isClosed()?"fermée":"ouverte");
+			System.out.println(cnx.isClosed()?"fermÃ©e":"ouverte");
 		}
 		catch (SQLException e) {
-			System.out.println("Une erreur est survenue lors de la connexion à la base de données");
+			System.out.println("Une erreur est survenue lors de la connexion Ã  la base de donnÃ©es");
 			e.printStackTrace();
 		}
 
@@ -52,23 +50,28 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
-		String re2 = "SELECT * FROM utilisateur WHERE mail = '" + ut.getMail() + "'AND mdp = '" + ut.getMdp() + '"';
+		String re2 = "SELECT mdp FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
 		System.out.println(re2);
-
 		try {
-			r2 = stm.executeQuery(re2);
+			ResultSet resultatrecherche = stm.executeQuery(re2);
+			while(resultatrecherche.next()){
+				// Aﬃchage des lignes qui comporte les caractères de "recherche"
+				desc = resultatrecherche.getString("mdp");
+				System.out.println(desc);
+				System.out.println(ut.getMdp());
+			}
+			if(ut.getMdp().equals(desc)) {
+				co = true;
+			}
+			else {
+				co = false;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(ut.getMdp().equals(re2)) {
-			
-			return true;
-			
-		}
-		else {
-			return false;
-		}
+		System.out.println(co);
+		return co;
 	}
 	
 	
@@ -98,12 +101,12 @@ public class Manager {
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
 			/*
-			 * Si l'�tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-			 * en fonction de son r�le/status
+			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
+			 * en fonction de son rôle/status
 			 */
 			System.out.println("Bienvenue");
 		} else {
-			System.out.println("Votre compte est d�sactiv�. Veuillez contacter l'administrateur");
+			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
 	

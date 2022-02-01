@@ -85,10 +85,18 @@ public class connexion {
 				ut.setMdp(textField_1.getText());
 				Manager ma = new Manager();
 				test = ma.connexionuser(ut);
+				System.out.println(test);
 				if(test) {
-				admin ad = new admin();
-				ad.run();
-			}
+					admin ad = new admin();
+					ad.run();
+				}
+				else {
+					JLabel lblNewLabel_2 = new JLabel("Email inexistant ou mot de passe incorrect !");
+					lblNewLabel_2.setForeground(Color.RED);
+					lblNewLabel_2.setBounds(19, 119, 262, 14);
+					frame.getContentPane().add(lblNewLabel_2);
+					frame.repaint();
+					}
 			}
 		});
 		btnNewButton.setBounds(293, 143, 117, 29);
@@ -101,5 +109,7 @@ public class connexion {
 		});
 		btnNewButton_1.setBounds(6, 143, 159, 29);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		
 	}
 }
