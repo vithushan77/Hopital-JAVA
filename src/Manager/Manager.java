@@ -131,6 +131,19 @@ public class Manager {
 		}
 	}
 	
+	public void DesactiverCompte(boolean etatCompte) throws SQLException {
+		String sql = "UPDATE utilisateur SET etatCompte = '0'";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setBoolean(1, etatCompte);
+		
+		int rowUpdated = pstm.executeUpdate();
+		if(rowUpdated > 0) {
+			System.out.println("Compte désactivé");
+		} else {
+			System.out.println("Erreur");
+		}
+	}
+	
 	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
 		String sql = "INSERT INTO medicaments(nomMedicament, quantite, toxicite) VALUES(?,?,?)";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
