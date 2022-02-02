@@ -101,8 +101,8 @@ public class Manager {
 			}
 		}
 	
-	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, int etatCompte) throws SQLException {
-		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, boolean etatCompte) throws SQLException {
+	    String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
 		String sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, nom);
@@ -110,23 +110,22 @@ public class Manager {
 		pstm.setString(3, mail);
 		pstm.setString(4, hashedPwd);
 		pstm.setString(5, role);
-		pstm.setInt(6, etatCompte);
+		pstm.setBoolean(6, etatCompte);
 		
 		int rowsUpdated = pstm.executeUpdate();
 		System.out.println("Un nouvel utilisateur a été ajouté");
 	}
 	
-	public void VerifyOAuth(int id, String mail, String mdp) throws SQLException {
-		String sql = "SELECT mail, mdp FROM utilisateur WHERE id = ?";
+	public void VerifyOAuth(String mail, String mdp) throws SQLException {
+		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setInt(1, id);
+		pstm.setString(1, mail);
+		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
-			if() {
-				
-			} else {
-				
-			}
+			String result = rs.getString("mail");
+			String rsult = rs.getString("mdp");
+	
 		}
 	}
 	
