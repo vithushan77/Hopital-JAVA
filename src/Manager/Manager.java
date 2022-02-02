@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import Model.Utilisateur;
 
 public class Manager {
@@ -97,6 +100,25 @@ public class Manager {
 			e.printStackTrace();
 			}
 		}
+	
+	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, int etatCompte) throws SQLException {
+		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+		String sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nom);
+		pstm.setString(2, prenom);
+		pstm.setString(3, mail);
+		pstm.setString(4, hashedPwd);
+		pstm.setString(5, role);
+		pstm.setInt(6, etatCompte);
+		
+		int rowsUpdated = pstm.executeUpdate();
+		System.out.println("Un nouvel utilisateur a été ajouté");
+	}
+	
+	public void VerifyOAuth(String mail, String mdp) {
+		
+	}
 	
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {

@@ -7,10 +7,19 @@ public class Utilisateur {
 	private String mail;
 	private String mdp;
 	private String status;
-	private Boolean etatCompte;
+	private int etatCompte;
 	
 
-	
+	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status, int etatCompte) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.mail = mail;
+		this.mdp = mdp;
+		this.status = status;
+		this.etatCompte = etatCompte;
+	}
 
 	public int getId() {
 		return this.id;
@@ -61,13 +70,11 @@ public class Utilisateur {
 		this.status = status;
 		}
 	
-	public Boolean getEtatCompte() {
-		
-	
+	public int getEtatCompte() {	
 		return this.etatCompte;
 		}
 	
-	public void setEtatCompte(Boolean etatCompte) {
+	public void setEtatCompte(int etatCompte) {
 		this.etatCompte = etatCompte;
 		}
 	

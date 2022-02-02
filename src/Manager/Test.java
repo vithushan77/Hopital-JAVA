@@ -7,7 +7,7 @@ public class Test {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		Manager manager = new Manager();
-		manager.AjouterMedicaments("Efferalgan", 15, "Moyen");
+		manager.AjouterUtilisateurs("TANG", "Minh-Nguyen", "m.tang@hotmail.fr", "Slenderman", "gestionnaire", 1);
 	}
 
 }
