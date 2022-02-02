@@ -116,8 +116,18 @@ public class Manager {
 		System.out.println("Un nouvel utilisateur a été ajouté");
 	}
 	
-	public void VerifyOAuth(String mail, String mdp) {
-		
+	public void VerifyOAuth(int id, String mail, String mdp) throws SQLException {
+		String sql = "SELECT mail, mdp FROM utilisateur WHERE id = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			if() {
+				
+			} else {
+				
+			}
+		}
 	}
 	
 	public void VerifEtatCompte(boolean etatCompte) {
@@ -153,10 +163,10 @@ public class Manager {
 		}
 	}
 	
-	public void DesactiverCompte(boolean etatCompte) throws SQLException {
+	public void DesactiverCompte(int etatCompte) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = '0'";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setBoolean(1, etatCompte);
+		pstm.setInt(1, etatCompte);
 		
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
