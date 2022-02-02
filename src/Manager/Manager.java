@@ -142,11 +142,12 @@ public class Manager {
 	}
 	
 	public void ModifierProfil(String nom, String prenom, String mail) throws SQLException {
-		String sql = "SELECT * FROM utilisateur";
+		String sql = "SELECT * FROM utilisateur WHERE nom = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nom);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
-			sql = "UPDATE utilisateur SET nom='?', prenom='?', mail='?'";
+			sql = "UPDATE utilisateur SET nom= ?, prenom= ?, mail= ?";
 			pstm = this.connexionbdd().prepareStatement(sql);
 			pstm.setString(1, nom);
 			pstm.setString(2, prenom);
@@ -154,9 +155,9 @@ public class Manager {
 			
 			int rowsUpdated = pstm.executeUpdate();
 			if(rowsUpdated > 0) {
-				System.out.println("Les informations de votre profil ont bien �t� modifi�");
+				System.out.println("Les informations de votre profil ont bien été modifié");
 			} else {
-				System.out.println("Une erreur est survenue lors de la modification. Veuillez r�essayer ult�rieurement.");
+				System.out.println("Une erreur est survenue lors de la modification. Veuillez réessayer ultérieurement.");
 			}
 
 		}
