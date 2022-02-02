@@ -1,17 +1,13 @@
 package Manager;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import java.sql.SQLException;
 
 public class Test {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		String password = "Espellianus";
-		String securePassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
-		System.out.println(securePassword);
-		
-		boolean matched = BCrypt.checkpw(password, securePassword);
-		System.out.println(matched);
+		Manager manager = new Manager();
+		manager.AjouterMedicaments("Efferalgan", 15, "Moyen");
 	}
 
 }

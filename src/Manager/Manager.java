@@ -25,9 +25,9 @@ public class Manager {
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -150,9 +150,9 @@ public class Manager {
 		pstm.setString(1, nomMedicament);
 		pstm.setInt(2, quantite);
 		pstm.setString(3, toxicite);
-		boolean result = pstm.execute();
 		
-		if(result) {
+		int rowsUpdated = pstm.executeUpdate();
+		if(rowsUpdated > 0) {
 			System.out.println("Ajout du médicament effectué avec succès");
 		} else {
 			System.out.println("Erreur lors de l'ajout");
