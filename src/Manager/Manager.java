@@ -162,10 +162,10 @@ public class Manager {
 		}
 	}
 	
-	public void DesactiverCompte(int etatCompte) throws SQLException {
-		String sql = "UPDATE utilisateur SET etatCompte = '0'";
+	public void DesactiverCompte(String mail) throws SQLException {
+		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setInt(1, etatCompte);
+		pstm.setString(1, mail);
 		
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
