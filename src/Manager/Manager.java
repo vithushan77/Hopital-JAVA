@@ -141,25 +141,20 @@ public class Manager {
 		}
 	}
 	
-	public void ModifierProfil(String nom, String prenom, String mail) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE nom = ?";
+	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
+		String sql = "SELECT * FROM utilisateur WHERE id = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, nom);
+		pstm.setInt(1, id);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
-			sql = "UPDATE utilisateur SET nom= ?, prenom= ?, mail= ?";
+			sql = "UPDATE utilisateur SET nom = ?, prenom = ?, mail = ? WHERE id = ?";
 			pstm = this.connexionbdd().prepareStatement(sql);
 			pstm.setString(1, nom);
 			pstm.setString(2, prenom);
 			pstm.setString(3, mail);
-			
-			int rowsUpdated = pstm.executeUpdate();
-			if(rowsUpdated > 0) {
-				System.out.println("Les informations de votre profil ont bien été modifié");
-			} else {
-				System.out.println("Une erreur est survenue lors de la modification. Veuillez réessayer ultérieurement.");
-			}
-
+			pstm.setInt(4, id);
+			pstm.execute();
+			System.out.println("Profil mis à jour");
 		}
 	}
 	
@@ -205,17 +200,20 @@ public class Manager {
 	}
 	
 	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
-		String sql = "INSERT INTO medicaments(nomMedicament, quantite, toxicite) VALUES(?,?,?)";
+		String sql = "SELECT nomMedicament FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, nomMedicament);
-		pstm.setInt(2, quantite);
-		pstm.setString(3, toxicite);
-		
-		int rowsUpdated = pstm.executeUpdate();
-		if(rowsUpdated > 0) {
-			System.out.println("Ajout du médicament effectué avec succès");
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Le produit de ce nom a déjà été ajouté dans la base de données");
 		} else {
-			System.out.println("Erreur lors de l'ajout");
+			sql = "INSERT INTO medicaments(nomMedicament, quantite, toxicite) VALUES(?,?,?)";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nomMedicament);
+			pstm.setInt(2, quantite);
+			pstm.setString(3, toxicite);
+			pstm.execute();
+			System.out.println("Ajout du médicament effectué avec succès");
 		}
 	}
 	
