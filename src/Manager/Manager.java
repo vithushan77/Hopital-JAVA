@@ -204,11 +204,29 @@ public class Manager {
 		}
 	}
 	
-	public void SupprimerMedicaments(int id, String nomMedicament, int quantite, String toxicite) throws SQLException {
-		String sql = "DELETE FROM medicaments WHERE id = ?";
+	public void MajMedicaments(String nomMedicament, int quantite) throws SQLException {
+		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setInt(1, id);
-		boolean result = pstm.execute();
+		pstm.setString(1, nomMedicament);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			int total = rs.getInt("quantite");
+			sql = "UPDATE medicaments SET quantite = ? WHERE nomMedicament = ?";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setInt(1, total + quantite);
+			pstm.setString(2, nomMedicament);
+			pstm.execute();
+			System.out.println("Mise à jour du produit effectuée avec succès");
+		}
+	}
+	
+	public void SupprimerMedicaments(String nomMedicament) throws SQLException {
+		String sql = "DELETE FROM medicaments WHERE nomMedicament = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nomMedicament);
+		
+		int rowExpunged = pstm.executeUpdate();
+		System.out.println("Le produit a bel et bien été supprimé");
 	}
 	
 	public void AfficherUtilisateurs() throws SQLException {
