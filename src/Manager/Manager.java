@@ -244,7 +244,7 @@ public class Manager {
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
 	
-	public void AfficherUtilisateurs() throws SQLException {
+	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		ResultSet rs = pstm.executeQuery();
