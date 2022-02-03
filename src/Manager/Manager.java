@@ -189,6 +189,21 @@ public class Manager {
 		}
 	}
 	
+	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
+		String sql = "SELECT * FROM medicaments";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		ArrayList<ArrayList> laListeMedic = new ArrayList<ArrayList>();
+		while(rs.next()) {
+			ArrayList<Object> listeMedicaments = new ArrayList<Object>();
+			listeMedicaments.add(rs.getString("nomMedicament"));
+			listeMedicaments.add(rs.getInt("quantite"));
+			listeMedicaments.add(rs.getString("toxicite"));
+			laListeMedic.add(listeMedicaments);
+		}
+		return laListeMedic;
+	}
+	
 	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
 		String sql = "INSERT INTO medicaments(nomMedicament, quantite, toxicite) VALUES(?,?,?)";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
