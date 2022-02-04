@@ -158,7 +158,7 @@ public class Manager {
 	}
 	
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE id = ?";
+		String sql = "SELECT * FROM utilisateur WHERE id = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setInt(1, id);
 		ResultSet rs = pstm.executeQuery();
