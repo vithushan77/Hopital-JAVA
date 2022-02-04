@@ -102,18 +102,25 @@ public class Manager {
 		}
 	
 	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, boolean etatCompte) throws SQLException {
-	    String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
-		String sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
+		String sql = "SELECT * FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, nom);
-		pstm.setString(2, prenom);
-		pstm.setString(3, mail);
-		pstm.setString(4, hashedPwd);
-		pstm.setString(5, role);
-		pstm.setBoolean(6, etatCompte);
-		
-		int rowsUpdated = pstm.executeUpdate();
-		System.out.println("Un nouvel utilisateur a été ajouté");
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Identifiants déjà existants");
+		} else {
+			String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+			sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
+		    pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nom);
+			pstm.setString(2, prenom);
+			pstm.setString(3, mail);
+			pstm.setString(4, hashedPwd);
+			pstm.setString(5, role);
+			pstm.setBoolean(6, etatCompte);
+			pstm.execute();
+			System.out.println("Un nouvel utilisateur a été ajouté");
+		}
 	}
 	
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
