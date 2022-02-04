@@ -123,18 +123,22 @@ public class Manager {
 		}
 	}
 	
+	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ?";
+		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
-		while(rs.next()) {
-			String result = rs.getString("mail");
-			String rsult = rs.getString("mdp");
-	
+	    while(rs.next()) {
+	    	if(BCrypt.checkpw(mdp, rs.getString("mdp"))) {
+	    		System.out.println("Bienvenue");
+	    	} else {
+	    		System.out.println("Veuillez réessayer ultérieurement");
+	    	}
 		}
 	}
+	*/
 	
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
