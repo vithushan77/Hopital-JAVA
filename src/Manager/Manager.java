@@ -3,6 +3,7 @@
 
 package Manager;
 
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import Model.Medicaments;
 import Model.Utilisateur;
 
 public class Manager {
@@ -25,6 +27,9 @@ public class Manager {
 	public int exist;
 	public int admin;
 	boolean co = false;
+	private static final String DELIMITER = ",";
+	private static final String SEPARATOR = "\n";
+	private static final String HEADER = "Nom, Quantité, Toxicité";
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
@@ -252,6 +257,36 @@ public class Manager {
 		int rowExpunged = pstm.executeUpdate();
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
+	
+	/*
+	public void ExporterMedicaments() throws SQLException {
+		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
+		String sql = "SELECT * FROM medicaments";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			Medicaments medic = new Medicaments(rs.getInt("id"), rs.getString("nomMedicament"), rs.getInt("quantite"), rs.getString("toxicite"));
+		}
+		FileWriter file = null;
+		try {
+			file = new FileWriter("Liste des médicaments.csv");
+			file.append(HEADER);
+			file.append(SEPARATOR);
+			
+			for(Medicaments m : listeMedicaments) {
+				file.append(m.getNomMedicament());
+				file.append(DELIMITER);
+				file.append(String.valueOf(m.getQuantite()));
+				file.append(DELIMITER);
+				file.append(m.getToxicite());
+				file.append(SEPARATOR);
+			}
+			file.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	*/
 	
 	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";

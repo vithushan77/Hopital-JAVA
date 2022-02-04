@@ -6,7 +6,7 @@ public class Medicaments {
 	private int quantite;
 	private String toxicite;
 	
-	Medicaments(int id, String nomMedicament, int quantite, String toxicite) {
+	public Medicaments(int id, String nomMedicament, int quantite, String toxicite) {
 		this.id = id;
 		this.nomMedicament = nomMedicament;
 		this.quantite = quantite;
