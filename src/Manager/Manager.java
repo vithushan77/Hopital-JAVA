@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import Model.Medicaments;
 import Model.Utilisateur;
+import Model.Patient;
 
 public class Manager {
 	private int r1;
@@ -305,7 +306,26 @@ public class Manager {
 		}
 	}
 	
-	
+	public void AjouterPatient(String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
+		String sql = "SELECT * FROM patient WHERE id_patient = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, idSecuriteSocial);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Les informations du patient que vous avez saisies ont déjà été enregistrées");
+		} else {
+			sql = "INSERT INTO patient(nomPatient, prenomPatient, telephone, adresse, mutuelle, idSecuriteSocial) VALUES(?,?,?,?,?,?)";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nomPatient);
+			pstm.setString(2, prenomPatient);
+			pstm.setString(3, telephone);
+			pstm.setString(4, adresse);
+			pstm.setString(5, mutuelle);
+			pstm.setString(6, idSecuriteSocial);
+			int addedRow = pstm.executeUpdate();
+			System.out.println("Les informations du patient ont bien été enregistrées");
+		}
+	}
 }
 
 
