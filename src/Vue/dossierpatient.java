@@ -93,13 +93,12 @@ public class dossierpatient {
 			public void actionPerformed(ActionEvent e) {
 				Patient dopt = new Patient();
 				dopt.setTelephone(telephone.getText());
-				dopt.setPrenom(.getText());
-				dopt.setMail(t.getText());
-				dopt.setMdp(.getText());
+				dopt.setSecuriteSocial(social.getText());
+				dopt.setMutuelle(Mutuelle.getText());
 				
 				Manager man = new Manager();
 				man.connexionbdd();
-				man.inscription(ajut);
+				man.informationsupp(dopt);
 			}
 		});
 		btnNewButton_1.setBounds(290, 207, 117, 29);

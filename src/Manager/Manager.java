@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import Model.Patient;
 import Model.Utilisateur;
 
 public class Manager {
@@ -28,9 +29,9 @@ public class Manager {
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -259,6 +260,28 @@ public class Manager {
 		}
 	}
 	
+	public void informationsupp(Patient dopt) {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm1 = null;
+		try {
+			stm1 = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}	
+		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
+		System.out.println(re4);
+
+		try {
+			r1 = stm1.executeUpdate(re4);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//System.out.println("hello");
+			e.printStackTrace();
+			}
+		
+	}
 	
 }
 

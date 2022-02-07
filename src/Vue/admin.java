@@ -93,6 +93,8 @@ public class admin {
 		JButton btnNewButton_5 = new JButton("Crée dosier patient");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dossierpatient dopat = new dossierpatient();
+				dopat.run();
 			}
 		});
 		btnNewButton_5.setBounds(17, 72, 151, 70);

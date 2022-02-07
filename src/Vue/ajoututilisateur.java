@@ -16,6 +16,7 @@ import Model.Utilisateur;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+import javax.swing.UIManager;
 
 public class ajoututilisateur {
 
@@ -51,7 +52,7 @@ public class ajoututilisateur {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(0, 255, 255));
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
