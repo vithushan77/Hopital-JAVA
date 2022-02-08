@@ -3,6 +3,7 @@
 
 package Manager;
 
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +16,9 @@ import javax.swing.JOptionPane;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import Model.Patient;
+import Model.Medicaments;
 import Model.Utilisateur;
+import Model.Patient;
 
 public class Manager {
 	private int r1;
@@ -26,6 +29,9 @@ public class Manager {
 	public int exist;
 	public int admin;
 	boolean co = false;
+	private static final String DELIMITER = ",";
+	private static final String SEPARATOR = "\n";
+	private static final String HEADER = "Nom, Quantité, Toxicité";
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
@@ -103,32 +109,43 @@ public class Manager {
 		}
 	
 	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, boolean etatCompte) throws SQLException {
-	    String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
-		String sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
+		String sql = "SELECT * FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, nom);
-		pstm.setString(2, prenom);
-		pstm.setString(3, mail);
-		pstm.setString(4, hashedPwd);
-		pstm.setString(5, role);
-		pstm.setBoolean(6, etatCompte);
-		
-		int rowsUpdated = pstm.executeUpdate();
-		System.out.println("Un nouvel utilisateur a été ajouté");
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Identifiants déjà existants");
+		} else {
+			String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+			sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
+		    pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nom);
+			pstm.setString(2, prenom);
+			pstm.setString(3, mail);
+			pstm.setString(4, hashedPwd);
+			pstm.setString(5, role);
+			pstm.setBoolean(6, etatCompte);
+			pstm.execute();
+			System.out.println("Un nouvel utilisateur a été ajouté");
+		}
 	}
 	
+	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ?";
+		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
-		while(rs.next()) {
-			String result = rs.getString("mail");
-			String rsult = rs.getString("mdp");
-	
+	    while(rs.next()) {
+	    	if(BCrypt.checkpw(mdp, rs.getString("mdp"))) {
+	    		System.out.println("Bienvenue");
+	    	} else {
+	    		System.out.println("Veuillez réessayer ultérieurement");
+	    	}
 		}
 	}
+	*/
 	
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
@@ -143,7 +160,7 @@ public class Manager {
 	}
 	
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE id = ?";
+		String sql = "SELECT * FROM utilisateur WHERE id = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setInt(1, id);
 		ResultSet rs = pstm.executeQuery();
@@ -243,6 +260,36 @@ public class Manager {
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
 	
+	/*
+	public void ExporterMedicaments() throws SQLException {
+		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
+		String sql = "SELECT * FROM medicaments";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			Medicaments medic = new Medicaments(rs.getInt("id"), rs.getString("nomMedicament"), rs.getInt("quantite"), rs.getString("toxicite"));
+		}
+		FileWriter file = null;
+		try {
+			file = new FileWriter("Liste des médicaments.csv");
+			file.append(HEADER);
+			file.append(SEPARATOR);
+			
+			for(Medicaments m : listeMedicaments) {
+				file.append(m.getNomMedicament());
+				file.append(DELIMITER);
+				file.append(String.valueOf(m.getQuantite()));
+				file.append(DELIMITER);
+				file.append(m.getToxicite());
+				file.append(SEPARATOR);
+			}
+			file.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	*/
+	
 	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -282,7 +329,27 @@ public class Manager {
 			}
 		
 	}
-	
+
+	public void AjouterPatient(String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
+		String sql = "SELECT * FROM patient WHERE id_patient = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, idSecuriteSocial);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Les informations du patient que vous avez saisies ont déjà été enregistrées");
+		} else {
+			sql = "INSERT INTO patient(nomPatient, prenomPatient, telephone, adresse, mutuelle, idSecuriteSocial) VALUES(?,?,?,?,?,?)";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nomPatient);
+			pstm.setString(2, prenomPatient);
+			pstm.setString(3, telephone);
+			pstm.setString(4, adresse);
+			pstm.setString(5, mutuelle);
+			pstm.setString(6, idSecuriteSocial);
+			int addedRow = pstm.executeUpdate();
+			System.out.println("Les informations du patient ont bien été enregistrées");
+		}
+	}
 }
 
 
