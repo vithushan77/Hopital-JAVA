@@ -61,6 +61,7 @@ public class admin {
 			public void actionPerformed(ActionEvent e) {
 				ajoututilisateur ajtu = new ajoututilisateur();
 				ajtu.run();
+				frame.dispose();
 			}
 		});
 		btnNewButton_1.setBounds(180, 102, 205, 40);
@@ -85,16 +86,18 @@ public class admin {
 		JButton btnNewButton_4 = new JButton("Déconnexion");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				connexion con = new connexion();
+				frame.dispose();
 			}
 		});
 		btnNewButton_4.setBounds(17, 6, 117, 29);
 		frame.getContentPane().add(btnNewButton_4);
-		
 		JButton btnNewButton_5 = new JButton("Crée dosier patient");
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dossierpatient dopat = new dossierpatient();
 				dopat.run();
+				frame.dispose();
 			}
 		});
 		btnNewButton_5.setBounds(17, 72, 151, 70);

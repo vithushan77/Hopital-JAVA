@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -21,12 +22,14 @@ public class connexion {
 
 	private JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
 	private boolean test;
+	
 
 	/**
 	 * Launch the application.
 	 */
+	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,10 +66,10 @@ public class connexion {
 		textField.setColumns(10);
 		
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(151, 77, 130, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+
+		JPasswordField password = new JPasswordField();
+		password.setBounds(151, 77, 130, 26);
+		frame.getContentPane().add(password);
 		
 		JLabel lblNewLabel = new JLabel("Mail/ Identifiant :");
 		lblNewLabel.setBounds(19, 32, 120, 16);
@@ -80,15 +83,16 @@ public class connexion {
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Utilisateur ut = new Utilisateur();
+				Utilisateur ut = new Utilisateur(0, textField.getText(),password.getText(), null, null, null, test);
 				ut.setMail(textField.getText());
-				ut.setMdp(textField_1.getText());
+				ut.setMdp(password.getText());
 				Manager ma = new Manager();
 				test = ma.connexionuser(ut);
 				System.out.println(test);
 				if(test) {
 					admin ad = new admin();
 					ad.run();
+					frame.dispose();
 				}
 				else {
 					JLabel lblNewLabel_2 = new JLabel("Email inexistant ou mot de passe incorrect !");
@@ -112,4 +116,6 @@ public class connexion {
 		
 		
 	}
+
+	
 }
