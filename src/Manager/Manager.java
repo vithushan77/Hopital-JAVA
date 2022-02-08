@@ -31,13 +31,13 @@ public class Manager {
 	boolean co = false;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
-	private static final String HEADER = "Nom, Quantité, Toxicité";
+	private static final String HEADER = "Nom, Quantite, Toxicite";
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -130,7 +130,6 @@ public class Manager {
 		}
 	}
 	
-	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -138,14 +137,10 @@ public class Manager {
 		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
 	    while(rs.next()) {
-	    	if(BCrypt.checkpw(mdp, rs.getString("mdp"))) {
-	    		System.out.println("Bienvenue");
-	    	} else {
-	    		System.out.println("Veuillez réessayer ultérieurement");
-	    	}
+	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
+	    	System.out.println(match);
 		}
 	}
-	*/
 	
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
@@ -260,7 +255,6 @@ public class Manager {
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
 	
-	/*
 	public void ExporterMedicaments() throws SQLException {
 		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
 		String sql = "SELECT * FROM medicaments";
@@ -288,7 +282,6 @@ public class Manager {
 			e.printStackTrace();
 		}
 	}
-	*/
 	
 	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
@@ -316,7 +309,7 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}	
-		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
+		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getIdSecuriteSocial() +"')";
 		System.out.println(re4);
 
 		try {
@@ -330,10 +323,10 @@ public class Manager {
 		
 	}
 
-	public void AjouterPatient(String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
+	public void AjouterPatient(int id_patient, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
 		String sql = "SELECT * FROM patient WHERE id_patient = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, idSecuriteSocial);
+		pstm.setInt(1, id_patient);
 		ResultSet rs = pstm.executeQuery();
 		if(rs.next()) {
 			System.out.println("Les informations du patient que vous avez saisies ont déjà été enregistrées");
@@ -350,6 +343,7 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
+	
 }
 
 

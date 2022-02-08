@@ -7,21 +7,21 @@ public class Patient {
 	private String telephone;
 	private String adresse;
 	private String mutuelle;
-	private String SecuriteSocial;
+	private String idSecuriteSocial;
 	
 	public Patient(int id, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle,
-			String securiteSocial) {
+			String idSecuriteSocial) {
 		this.id = id;
 		this.nomPatient = nomPatient;
 		this.prenomPatient = prenomPatient;
 		this.telephone = telephone;
 		this.adresse = adresse;
 		this.mutuelle = mutuelle;
-		SecuriteSocial = securiteSocial;
+		this.idSecuriteSocial = idSecuriteSocial;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -29,7 +29,7 @@ public class Patient {
 	}
 
 	public String getNomPatient() {
-		return nomPatient;
+		return this.nomPatient;
 	}
 
 	public void setNomPatient(String nomPatient) {
@@ -37,21 +37,21 @@ public class Patient {
 	}
 
 	public String getPrenomPatient() {
-		return prenomPatient;
+		return this.prenomPatient;
 	}
 
 	public void setPrenomPatient(String prenomPatient) {
 		this.prenomPatient = prenomPatient;
 	}
-
+	
 	public String getTelephone() {
-		return telephone;
+		return this.telephone;
 	}
-
+	
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-
+	
 	public String getAdresse() {
 		return adresse;
 	}
@@ -67,25 +67,13 @@ public class Patient {
 	public void setMutuelle(String mutuelle) {
 		this.mutuelle = mutuelle;
 	}
-
-	public String getSecuriteSocial() {
-		return SecuriteSocial;
+	
+	public String getIdSecuriteSocial() {
+		return this.idSecuriteSocial;
 	}
-
-	public void setString(String SecuriteSocial) {
-		this.SecuriteSocial = SecuriteSocial;
-		}
-	public String getTelephone() {
-		return Telephone;
-	}
-	public void setTelephone(String telephone) {
-		Telephone = telephone;
-	}
-	public String getSecuriteSocial() {
-		return SecuriteSocial;
-	}
-	public void setSecuriteSocial(String securiteSocial) {
-		SecuriteSocial = securiteSocial;
+	
+	public void setIdSecuriteSocial(String IdSecuriteSocial) {
+		this.idSecuriteSocial = idSecuriteSocial;
 	}
 	
 
