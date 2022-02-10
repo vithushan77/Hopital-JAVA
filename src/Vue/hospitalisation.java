@@ -63,7 +63,11 @@ public class hospitalisation {
 		comboBox.setBounds(93, 64, 226, 27);
 		frame.getContentPane().add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		
+		ArrayList<String> listemed = man.recupmed();
+		Object[] array1 = listemed.toArray();
+		JComboBox comboBox_1 = new JComboBox(array1);
+		
 		comboBox_1.setBounds(93, 145, 226, 27);
 		frame.getContentPane().add(comboBox_1);
 		

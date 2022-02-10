@@ -3,6 +3,7 @@
 
 package Manager;
 
+import java.awt.Container;
 import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -374,6 +375,29 @@ public class Manager {
 			}
 		return liste;
 		
+	}
+	
+	public ArrayList<String> recupmed(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, nomMedicament From medicaments";
+		System.out.println(sql);
+		ArrayList<String>listemed = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchemed = stm.executeQuery(sql);
+			while(resultatrecherchemed.next());{
+				listemed.add(resultatrecherchemed.getString("nomMedicament"));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	return listemed;
 	}
 }
 
