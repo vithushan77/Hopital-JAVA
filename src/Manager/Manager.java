@@ -31,7 +31,7 @@ public class Manager {
 	boolean co = false;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
-	private static final String HEADER = "Nom, Quantite, Toxicite";
+	private static final String HEADER = "Id, Nom, Quantite, Toxicite";
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
@@ -171,6 +171,15 @@ public class Manager {
 		}
 	}
 	
+	public void SupprimerProfil(int id) throws SQLException {
+		/*Le profil ne peut être supprimé si, et seulement si, un salarié licencié ou un patient en fait la demande*/
+		String sql = "DELETE FROM utilisateur WHERE id = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.execute();
+		System.out.println("Compte supprimé");
+	}
+	
 	public void DesactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -204,11 +213,12 @@ public class Manager {
 		ArrayList<ArrayList> laListeMedic = new ArrayList<ArrayList>();
 		while(rs.next()) {
 			ArrayList<Object> listeMedicaments = new ArrayList<Object>();
+			listeMedicaments.add(rs.getInt("id"));
 			listeMedicaments.add(rs.getString("nomMedicament"));
 			listeMedicaments.add(rs.getInt("quantite"));
 			listeMedicaments.add(rs.getString("toxicite"));
 			laListeMedic.add(listeMedicaments);
-		}
+			}
 		return laListeMedic;
 	}
 	
@@ -270,6 +280,8 @@ public class Manager {
 			file.append(SEPARATOR);
 			
 			for(Medicaments m : listeMedicaments) {
+				file.append(String.valueOf((m.getId())));
+				file.append(DELIMITER);
 				file.append(m.getNomMedicament());
 				file.append(DELIMITER);
 				file.append(String.valueOf(m.getQuantite()));

@@ -21,5 +21,13 @@ public class Medicaments {
 	public void setQuantite(int quantite) {this.quantite = quantite;}
 	public String getToxicite() {return this.toxicite;}
 	public void setToxicite(String toxicite) {this.toxicite = toxicite;}
+
+	@Override
+	public String toString() {
+		return "Medicaments [id=" + id + ", nomMedicament=" + nomMedicament + ", quantite=" + quantite + ", toxicite="
+				+ toxicite + "]";
+	}
+	
+	
 	
 }
