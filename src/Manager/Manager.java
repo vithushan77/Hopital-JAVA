@@ -34,13 +34,13 @@ public class Manager {
 	boolean co = false;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
-	private static final String HEADER = "Nom, Quantité, Toxicité";
-	
+	private static final String HEADER = "Nom, Quantite, Toxicite";
+
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -55,7 +55,7 @@ public class Manager {
 	}
 
 	public boolean connexionuser(Utilisateur ut) {
-		
+
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
 		try {
@@ -63,7 +63,7 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}		
+		}
 		String re2 = "SELECT mdp FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
 		System.out.println(re2);
 		try {
@@ -87,8 +87,8 @@ public class Manager {
 		System.out.println(co);
 		return co;
 	}
-	
-	
+
+
 	public void inscription(Utilisateur ajut){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm1 = null;
@@ -97,7 +97,7 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}	
+		}
 		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ ajut.getMdp() +"', 'patient','1')";
 		System.out.println(re3);
 
@@ -110,7 +110,7 @@ public class Manager {
 			e.printStackTrace();
 			}
 		}
-	
+
 	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, boolean etatCompte) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -132,8 +132,7 @@ public class Manager {
 			System.out.println("Un nouvel utilisateur a été ajouté");
 		}
 	}
-	
-	/*
+
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -141,15 +140,11 @@ public class Manager {
 		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
 	    while(rs.next()) {
-	    	if(BCrypt.checkpw(mdp, rs.getString("mdp"))) {
-	    		System.out.println("Bienvenue");
-	    	} else {
-	    		System.out.println("Veuillez réessayer ultérieurement");
-	    	}
+	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
+	    	System.out.println(match);
 		}
 	}
-	*/
-	
+
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
 			/*
@@ -161,7 +156,7 @@ public class Manager {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
-	
+
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE id = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -178,12 +173,12 @@ public class Manager {
 			System.out.println("Profil mis à jour");
 		}
 	}
-	
+
 	public void DesactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
+
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
 			System.out.println("Compte désactivé");
@@ -191,12 +186,12 @@ public class Manager {
 			System.out.println("Erreur");
 		}
 	}
-	
+
 	public void ReactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 1 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
+
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
 			System.out.println("Le compte a été réactivé");
@@ -204,7 +199,7 @@ public class Manager {
 			System.out.println("Une erreur est survenue lors de la requête de réactivation");
 		}
 	}
-	
+
 	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
 		String sql = "SELECT * FROM medicaments";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -219,7 +214,7 @@ public class Manager {
 		}
 		return laListeMedic;
 	}
-	
+
 	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
 		String sql = "SELECT nomMedicament FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -237,7 +232,7 @@ public class Manager {
 			System.out.println("Ajout du médicament effectué avec succès");
 		}
 	}
-	
+
 	public void MajMedicaments(String nomMedicament, int quantite) throws SQLException {
 		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -253,17 +248,16 @@ public class Manager {
 			System.out.println("Mise à jour du produit effectuée avec succès");
 		}
 	}
-	
+
 	public void SupprimerMedicaments(String nomMedicament) throws SQLException {
 		String sql = "DELETE FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, nomMedicament);
-		
+
 		int rowExpunged = pstm.executeUpdate();
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
-	
-	/*
+
 	public void ExporterMedicaments() throws SQLException {
 		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
 		String sql = "SELECT * FROM medicaments";
@@ -277,7 +271,7 @@ public class Manager {
 			file = new FileWriter("Liste des médicaments.csv");
 			file.append(HEADER);
 			file.append(SEPARATOR);
-			
+
 			for(Medicaments m : listeMedicaments) {
 				file.append(m.getNomMedicament());
 				file.append(DELIMITER);
@@ -291,8 +285,7 @@ public class Manager {
 			e.printStackTrace();
 		}
 	}
-	*/
-	
+
 	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -303,13 +296,13 @@ public class Manager {
 			listeUtilisateurs.add(rs.getString("prenom"));
 			listeUtilisateurs.add(rs.getString("mail"));
 			listeUtilisateurs.add(rs.getString("role"));
-			
+
 			for(int i = 0; i < listeUtilisateurs.size(); i++) {
 				System.out.println(listeUtilisateurs.get(i));
 			}
 		}
 	}
-	
+
 	public void informationsupp(Patient dopt) {
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm1 = null;
@@ -318,8 +311,8 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}	
-		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
+		}
+		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getIdSecuriteSocial() +"')";
 		System.out.println(re4);
 
 		try {
@@ -330,13 +323,13 @@ public class Manager {
 			//System.out.println("hello");
 			e.printStackTrace();
 			}
-		
+
 	}
 
-	public void AjouterPatient(String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
+	public void AjouterPatient(int id_patient, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
 		String sql = "SELECT * FROM patient WHERE id_patient = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, idSecuriteSocial);
+		pstm.setInt(1, id_patient);
 		ResultSet rs = pstm.executeQuery();
 		if(rs.next()) {
 			System.out.println("Les informations du patient que vous avez saisies ont déjà été enregistrées");
@@ -354,7 +347,7 @@ public class Manager {
 		}
 	}
 	
-	
+
 	public ArrayList<String> recupuser() {
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -363,7 +356,7 @@ public class Manager {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}		
+		}
 		String sql ="SELECT id, nom From utilisateur where status = 'patient' ";
 		System.out.println(sql);
 		ArrayList<String> liste = new ArrayList<>();
@@ -376,9 +369,9 @@ public class Manager {
 				e.printStackTrace();
 			}
 		return liste;
-		
+
 	}
-	
+
 	public ArrayList<String> recupmed(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -395,16 +388,16 @@ public class Manager {
 			ResultSet resultatrecherchemed = stm.executeQuery(sql);
 			while(resultatrecherchemed.next()){
 				listemed.add(resultatrecherchemed.getString("nomMedicament"));
-				
+
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+
 	System.out.println(listemed);
 	return listemed;
 	}
-	
+
 	public ArrayList<String>recupcham(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -421,22 +414,16 @@ public class Manager {
 			ResultSet resultatrecherchecham = stm.executeQuery(sql);
 			while(resultatrecherchecham.next()){
 				listecham.add(resultatrecherchecham.getString("numeroChambre"));
-				
+
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+
 	return listecham;
-		
+
 	}
-	
-	
-	
+
+
+
 }
-
-
-
-
-
-
