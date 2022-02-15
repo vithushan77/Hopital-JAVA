@@ -184,26 +184,16 @@ public class Manager {
 		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
 		int rowUpdated = pstm.executeUpdate();
-		if(rowUpdated > 0) {
-			System.out.println("Compte désactivé");
-		} else {
-			System.out.println("Erreur");
-		}
+		System.out.println("Compte désactivé");
 	}
 	
 	public void ReactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 1 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
 		int rowUpdated = pstm.executeUpdate();
-		if(rowUpdated > 0) {
-			System.out.println("Le compte a été réactivé");
-		} else {
-			System.out.println("Une erreur est survenue lors de la requête de réactivation");
-		}
+		System.out.println("Le compte a été réactivé");
 	}
 	
 	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
