@@ -7,17 +7,17 @@ public class Patient {
 	private String telephone;
 	private String adresse;
 	private String mutuelle;
-	private String idSecuriteSocial;
+	private String SecuriteSocial;
 
 	public Patient(int id, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle,
-			String idSecuriteSocial) {
+			String SecuriteSocial) {
 		this.id = id;
 		this.nomPatient = nomPatient;
 		this.prenomPatient = prenomPatient;
 		this.telephone = telephone;
 		this.adresse = adresse;
 		this.mutuelle = mutuelle;
-		this.SecuriteSocial = securiteSocial;
+		this.SecuriteSocial = SecuriteSocial;
 	}
 
 	public int getId() {
@@ -53,7 +53,7 @@ public class Patient {
 	}
 
 	public String getAdresse() {
-		return adresse;
+		return this.adresse;
 	}
 
 	public void setAdresse(String adresse) {
@@ -61,7 +61,7 @@ public class Patient {
 	}
 
 	public String getMutuelle() {
-		return mutuelle;
+		return this.mutuelle;
 	}
 
 	public void setMutuelle(String mutuelle) {
@@ -69,17 +69,11 @@ public class Patient {
 	}
 
 	public String getSecuriteSocial() {
-		return SecuriteSocial;
+		return this.SecuriteSocial;
 	}
 
 	public void setString(String SecuriteSocial) {
 		this.SecuriteSocial = SecuriteSocial;
-		}
-
-
-
-	public void setSecuriteSocial(String securiteSocial) {
-		SecuriteSocial = securiteSocial;
 	}
 
 

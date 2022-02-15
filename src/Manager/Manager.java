@@ -312,7 +312,7 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getIdSecuriteSocial() +"')";
+		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
 		System.out.println(re4);
 
 		try {
