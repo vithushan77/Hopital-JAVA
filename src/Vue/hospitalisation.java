@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class hospitalisation {
 
@@ -26,8 +27,6 @@ public class hospitalisation {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					hospitalisation window = new hospitalisation();
@@ -36,8 +35,7 @@ public class hospitalisation {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -51,7 +49,7 @@ public class hospitalisation {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(500, 500, 600, 450);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -60,7 +58,7 @@ public class hospitalisation {
 		Object[] array = liste.toArray();
 				
 		JComboBox comboBox = new JComboBox(array);
-		comboBox.setBounds(93, 64, 226, 27);
+		comboBox.setBounds(229, 20, 226, 27);
 		frame.getContentPane().add(comboBox);
 		
 		
@@ -68,20 +66,43 @@ public class hospitalisation {
 		Object[] array1 = listemed.toArray();
 		JComboBox comboBox_1 = new JComboBox(array1);
 		
-		comboBox_1.setBounds(93, 145, 226, 27);
+		comboBox_1.setBounds(229, 88, 226, 27);
 		frame.getContentPane().add(comboBox_1);
+		
+		ArrayList<String> listecham = man.recupcham();
+		Object[]array2 = listecham.toArray();
+		JComboBox comboBox_1_1 = new JComboBox(array2);
+		
+		comboBox_1_1.setBounds(229, 150, 226, 27);
+		frame.getContentPane().add(comboBox_1_1);
 		
 		JButton btnNewButton = new JButton("Retour");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				admin ad = new admin();
+				ad.run();
+				frame.dispose();
 			}
 		});
-		btnNewButton.setBounds(6, 225, 117, 29);
+		btnNewButton.setBounds(6, 250, 117, 29);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Valider");
-		btnNewButton_1.setBounds(311, 225, 117, 29);
+		btnNewButton_1.setBounds(454, 250, 117, 29);
 		frame.getContentPane().add(btnNewButton_1);
+	
+		
+		JLabel lblNewLabel = new JLabel("Patient");
+		lblNewLabel.setBounds(36, 24, 117, 16);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Medicaments");
+		lblNewLabel_1.setBounds(36, 92, 117, 16);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Chambre");
+		lblNewLabel_2.setBounds(36, 154, 117, 16);
+		frame.getContentPane().add(lblNewLabel_2);
 	}
 	}
 

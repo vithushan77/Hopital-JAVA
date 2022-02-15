@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import Model.Patient;
 import Model.Medicaments;
 import Model.Utilisateur;
@@ -391,14 +393,46 @@ public class Manager {
 		ArrayList<String>listemed = new ArrayList<>();
 		try {
 			ResultSet resultatrecherchemed = stm.executeQuery(sql);
-			while(resultatrecherchemed.next());{
+			while(resultatrecherchemed.next()){
 				listemed.add(resultatrecherchemed.getString("nomMedicament"));
+				
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
+	
+	System.out.println(listemed);
 	return listemed;
 	}
+	
+	public ArrayList<String>recupcham(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, numeroChambre FROM chambres";
+		System.out.println(sql);
+		ArrayList<String>listecham = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchecham = stm.executeQuery(sql);
+			while(resultatrecherchecham.next()){
+				listecham.add(resultatrecherchecham.getString("numeroChambre"));
+				
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return listecham;
+		
+	}
+	
+	
+	
 }
 
 
