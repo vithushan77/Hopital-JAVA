@@ -3,6 +3,7 @@
 
 package Manager;
 
+import java.awt.Container;
 import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import Model.Patient;
 import Model.Medicaments;
@@ -350,6 +353,86 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
+	
+	
+	public ArrayList<String> recupuser() {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+		String sql ="SELECT id, nom From utilisateur where status = 'patient' ";
+		System.out.println(sql);
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("nom"));
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+		
+	}
+	
+	public ArrayList<String> recupmed(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, nomMedicament From medicaments";
+		System.out.println(sql);
+		ArrayList<String>listemed = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchemed = stm.executeQuery(sql);
+			while(resultatrecherchemed.next()){
+				listemed.add(resultatrecherchemed.getString("nomMedicament"));
+				
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	System.out.println(listemed);
+	return listemed;
+	}
+	
+	public ArrayList<String>recupcham(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, numeroChambre FROM chambres";
+		System.out.println(sql);
+		ArrayList<String>listecham = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchecham = stm.executeQuery(sql);
+			while(resultatrecherchecham.next()){
+				listecham.add(resultatrecherchecham.getString("numeroChambre"));
+				
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return listecham;
+		
+	}
+	
+	
+	
 }
 
 
