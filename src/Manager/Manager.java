@@ -156,6 +156,15 @@ public class Manager {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
+	
+	public void SupprimerProfil(int id) throws SQLException {
+		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
+		String sql = "DELETE FROM utilisateur WHERE id = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.execute();
+		System.out.println("Compte supprimé");
+	}
 
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE id = ? LIMIT 1";
