@@ -346,6 +346,40 @@ public class Manager {
 		}
 	}
 	
+	public void AjouterMedecins(int id, String nom, String prenom, String specialite) throws SQLException {
+		String sql = "SELECT * FROM medecins WHERE id = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Le médecin que vous voulez ajouter a déjà été enregistré");
+		} else {
+			sql = "INSERT INTO medecins(nom, prenom, specialite) VALUES(?,?,?)";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nom);
+			pstm.setString(2, prenom);
+			pstm.setString(3, specialite);
+			int addedRow = pstm.executeUpdate();
+			System.out.println("Les informations ont bien été enregistrées");
+		}
+	}
+	
+	public ArrayList<ArrayList>LesMedecins() throws SQLException {
+		ArrayList<ArrayList> listeMedecins = new ArrayList<ArrayList>();
+		String sql = "SELECT * FROM medecins";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			ArrayList<Object> leMedecin = new ArrayList<Object>();
+			leMedecin.add(rs.getInt("id"));
+			leMedecin.add(rs.getString("nom"));
+			leMedecin.add(rs.getString("prenom"));
+			leMedecin.add(rs.getString("specialite"));
+			listeMedecins.add(leMedecin);
+		}
+		return listeMedecins;
+	}
+	
 }
 
 
