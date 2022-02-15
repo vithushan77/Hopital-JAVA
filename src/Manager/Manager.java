@@ -326,7 +326,7 @@ public class Manager {
 
 	}
 
-	public void AjouterPatient(int id_patient, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
+	public void AjouterPatient(int id_patient, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String SecuriteSocial) throws SQLException {
 		String sql = "SELECT * FROM patient WHERE id_patient = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setInt(1, id_patient);
@@ -341,7 +341,7 @@ public class Manager {
 			pstm.setString(3, telephone);
 			pstm.setString(4, adresse);
 			pstm.setString(5, mutuelle);
-			pstm.setString(6, idSecuriteSocial);
+			pstm.setString(6, SecuriteSocial);
 			int addedRow = pstm.executeUpdate();
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
