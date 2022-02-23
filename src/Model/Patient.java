@@ -72,7 +72,7 @@ public class Patient {
 		return this.SecuriteSocial;
 	}
 
-	public void setString(String SecuriteSocial) {
+	public void setSecuriteSocial(String SecuriteSocial) {
 		this.SecuriteSocial = SecuriteSocial;
 	}
 

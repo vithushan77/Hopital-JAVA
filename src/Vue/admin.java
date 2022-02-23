@@ -51,6 +51,9 @@ public class admin {
 		JButton btnNewButton = new JButton("RDV");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				rdv rdn= new rdv();
+				rdn.run();
+				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(180, 50, 205, 40);
@@ -75,7 +78,7 @@ public class admin {
 				frame.dispose();
 			}
 		});
-		btnNewButton_2.setBounds(180, 154,  205, 40);
+		btnNewButton_2.setBounds(180, 154, 205, 40);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Voir des medecins");

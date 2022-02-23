@@ -38,9 +38,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -432,6 +432,57 @@ public class Manager {
 	return listecham;
 
 	}
+	public ArrayList<String>medecins(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, nom FROM medecin";
+		System.out.println(sql);
+		ArrayList<String>listemed = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchemed = stm.executeQuery(sql);
+			while(resultatrecherchemed.next()){
+				listemed.add(resultatrecherchemed.getString("nom"));
+
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return listemed;
+	}
+	
+	public ArrayList<String>heure(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, libelle FROM heure";
+		System.out.println(sql);
+		ArrayList<String>listeheure = new ArrayList<>();
+		try {
+			ResultSet resultatrechercheheure = stm.executeQuery(sql);
+			while(resultatrechercheheure.next()){
+				listeheure.add(resultatrechercheheure.getString("libelle"));
+
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		
+	return listeheure;
+	}
+
 
 
 
