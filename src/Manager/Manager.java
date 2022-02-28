@@ -388,6 +388,106 @@ public class Manager {
 		return liste;
 
 	}
+	
+	public ArrayList<String> recupmedecin() {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql ="SELECT id, nom From medecin";
+		System.out.println(sql);
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("nom"));
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+
+	}
+	
+	public ArrayList<String> recupheure() {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql ="SELECT id, libelle From heure";
+		System.out.println(sql);
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("libelle"));
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+
+	}
+	public void UpdateVerifMdp(String mail, int verifmdp) throws SQLException {
+		String sql = "UPDATE utilisateur SET verificationmdp = ? WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, verifmdp);
+		pstm.setString(2, mail);
+		
+		int rowExpunged = pstm.executeUpdate();
+		System.out.println("Le produit a bel et bien été supprimé");
+	}
+	
+	
+public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
+		
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+		String re2 = "SELECT verificationmdp FROM utilisateur WHERE mail = '" + mail + "'";
+		System.out.println(re2);
+		try {
+			ResultSet resultatrecherche = stm.executeQuery(re2);
+			while(resultatrecherche.next()){
+				// Aﬃchage des lignes qui comporte les caractères de "recherche"
+				desc = resultatrecherche.getString("verificationmdp");
+				System.out.println(desc);
+				System.out.println(nombre);
+				System.out.println(nouveauMdp);
+				System.out.println(mail);
+			}
+			if(nombre.equals(desc)) {
+				String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ?";
+				PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+				pstm.setString(1, nouveauMdp);
+				pstm.setString(2, mail);
+				int rowExpunged = pstm.executeUpdate();
+				co2 = "1";
+			}
+			else {
+				co2 = "0";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(co2);
+		return co2;
+	}
+	
 }
 
 

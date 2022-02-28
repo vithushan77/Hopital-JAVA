@@ -3,11 +3,14 @@ package Vue;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
+import Manager.Manager;
 
 public class administratif_rdv {
 
@@ -42,16 +45,26 @@ public class administratif_rdv {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(209, 47, 29, 21);
+		Manager man = new Manager();
+		ArrayList<String> liste = man.recupuser();
+		Object[] array = liste.toArray();
+		
+		ArrayList<String> liste2 = man.recupmedecin();
+		Object[] array2 = liste2.toArray();
+		
+		ArrayList<String> liste3 = man.recupheure();
+		Object[] array3 = liste3.toArray();
+		
+		JComboBox comboBox = new JComboBox(array);
+		comboBox.setBounds(144, 47, 94, 21);
 		frame.getContentPane().add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(209, 101, 29, 21);
+		JComboBox comboBox_1 = new JComboBox(array2);
+		comboBox_1.setBounds(144, 78, 94, 21);
 		frame.getContentPane().add(comboBox_1);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(209, 167, 29, 21);
+		JComboBox comboBox_2 = new JComboBox(array3);
+		comboBox_2.setBounds(144, 109, 94, 21);
 		frame.getContentPane().add(comboBox_2);
 		
 		JButton btnNewButton = new JButton("Valider");

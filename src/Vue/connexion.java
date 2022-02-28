@@ -56,6 +56,7 @@ public class connexion {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
 		textField = new JTextField();
 		textField.setBounds(151, 27, 130, 26);
@@ -111,7 +112,11 @@ public class connexion {
 		JButton btnNewButton_1 = new JButton("Mot de passe oublié");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				
+				motdepasseoublie mdp = new motdepasseoublie();
+				mdp.run();
+				frame.dispose();
+				}
 		});
 		btnNewButton_1.setBounds(6, 143, 159, 29);
 		frame.getContentPane().add(btnNewButton_1);
