@@ -364,6 +364,30 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
+	
+	public ArrayList<String> recupuser() {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql ="SELECT id, nom From utilisateur where status = 'patient' ";
+		System.out.println(sql);
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("nom"));
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+
+	}
 }
 
 
