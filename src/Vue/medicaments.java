@@ -4,106 +4,88 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
-import java.awt.BorderLayout;
-import javax.swing.JSpinner;
 
 import Manager.Manager;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
-public class hospitalisation {
+public class medicaments {
 
-	private static final JComboBox ComboBox_nom = null;
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
+	
 			public void run() {
 				try {
-					hospitalisation window = new hospitalisation();
+					medicaments window = new medicaments();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-	
+	}
 
 	/**
 	 * Create the application.
 	 */
-	public hospitalisation() {
+	public medicaments() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.d
+	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(500, 500, 600, 450);
+		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		Manager man = new Manager();
 		ArrayList<String> liste = man.recupuser();
 		Object[] array = liste.toArray();
-				
-		JComboBox comboBox = new JComboBox(array);
-		comboBox.setBounds(229, 20, 226, 27);
-		frame.getContentPane().add(comboBox);
 		
+		JComboBox comboBox = new JComboBox(array);
+		comboBox.setBounds(153, 31, 216, 61);
+		frame.getContentPane().add(comboBox);
 		
 		ArrayList<String> listemed = man.recupmed();
 		Object[] array1 = listemed.toArray();
 		JComboBox comboBox_1 = new JComboBox(array1);
-		
-		comboBox_1.setBounds(229, 88, 226, 27);
+		comboBox_1.setBounds(153, 104, 216, 61);
 		frame.getContentPane().add(comboBox_1);
 		
-		ArrayList<String> listecham = man.recupcham();
-		Object[]array2 = listecham.toArray();
-		JComboBox comboBox_1_1 = new JComboBox(array2);
-		
-		comboBox_1_1.setBounds(229, 150, 226, 27);
-		frame.getContentPane().add(comboBox_1_1);
-		
-		JButton btnNewButton = new JButton("Retour");
+		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				admin ad = new admin();
-				ad.run();
-				frame.dispose();
 			}
 		});
-		btnNewButton.setBounds(6, 250, 117, 29);
+		btnNewButton.setBounds(294, 209, 117, 29);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Valider");
-		btnNewButton_1.setBounds(454, 250, 117, 29);
-		frame.getContentPane().add(btnNewButton_1);
-	
-		
 		JLabel lblNewLabel = new JLabel("Patient");
-		lblNewLabel.setBounds(36, 24, 117, 16);
+		lblNewLabel.setBounds(29, 52, 61, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Medicaments");
-		lblNewLabel_1.setBounds(36, 92, 117, 16);
+		lblNewLabel_1.setBounds(29, 125, 61, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Chambre");
-		lblNewLabel_2.setBounds(36, 154, 117, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		JButton btnNewButton_1 = new JButton("Retour");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				infirmiere inf = new infirmiere();
+				inf.run();
+				frame.dispose();
+			}
+		});
+		btnNewButton_1.setBounds(6, 209, 117, 29);
+		frame.getContentPane().add(btnNewButton_1);
 	}
-	}
-
-
+}

@@ -1,5 +1,6 @@
 package Vue;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -45,6 +46,7 @@ public class dossierpatient {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -83,6 +85,10 @@ public class dossierpatient {
 		JButton btnNewButton = new JButton("Retour");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				admin ad = new admin();
+				ad.run();
+				frame.dispose();
+						
 			}
 		});
 		btnNewButton.setBounds(18, 207, 117, 29);
@@ -91,10 +97,11 @@ public class dossierpatient {
 		JButton btnNewButton_1 = new JButton("Valider");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Patient dopt = new Patient();
+				Patient dopt = new Patient(0, telephone.getText(),Mutuelle.getText(),social.getText(), null, null, null);
 				dopt.setTelephone(telephone.getText());
-				dopt.setSecuriteSocial(social.getText());
 				dopt.setMutuelle(Mutuelle.getText());
+				dopt.setSecuriteSocial(social.getText());
+				
 				
 				Manager man = new Manager();
 				man.connexionbdd();

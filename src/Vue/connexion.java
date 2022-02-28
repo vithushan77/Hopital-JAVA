@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -27,6 +28,8 @@ public class connexion {
 	/**
 	 * Launch the application.
 	 */
+
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -57,33 +60,33 @@ public class connexion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
-		
+
 		textField = new JTextField();
 		textField.setBounds(151, 27, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(151, 77, 130, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		
+
+
+
+		JPasswordField password = new JPasswordField();
+		password.setBounds(151, 77, 130, 26);
+		frame.getContentPane().add(password);
+
 		JLabel lblNewLabel = new JLabel("Mail/ Identifiant :");
 		lblNewLabel.setBounds(19, 32, 120, 16);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Mot de passe :");
 		lblNewLabel_1.setBackground(new Color(0, 191, 255));
 		lblNewLabel_1.setBounds(19, 82, 103, 16);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Utilisateur ut = new Utilisateur();
+				Utilisateur ut = new Utilisateur(0, textField.getText(),password.getText(), null, null, null, test);
 				ut.setMail(textField.getText());
-				ut.setMdp(textField_1.getText());
+				ut.setMdp(password.getText());
 				Manager ma = new Manager();
 				test = ma.connexionuser(ut);
 				System.out.println(test);
@@ -108,11 +111,11 @@ public class connexion {
 		});
 		btnNewButton.setBounds(293, 143, 117, 29);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Mot de passe oublié");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				motdepasseoublie mdp = new motdepasseoublie();
 				mdp.run();
 				frame.dispose();
@@ -120,7 +123,9 @@ public class connexion {
 		});
 		btnNewButton_1.setBounds(6, 143, 159, 29);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		
+
+
 	}
+
+
 }

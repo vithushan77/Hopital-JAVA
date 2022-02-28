@@ -99,12 +99,11 @@ public class ajoututilisateur {
 		JButton btnNewButton_3 = new JButton("Ajouter");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Utilisateur ajut = new Utilisateur();
+				Utilisateur ajut = new Utilisateur(0, textField_nom.getText(),textField_prenom.getText(),textField_mail.getText(),passwordField.getText(), null, false);
 				ajut.setNom(textField_nom.getText());
 				ajut.setPrenom(textField_prenom.getText());
 				ajut.setMail(textField_mail.getText());
 				ajut.setMdp(passwordField.getText());
-				
 				Manager man = new Manager();
 				man.connexionbdd();
 				man.inscription(ajut);
@@ -113,6 +112,17 @@ public class ajoututilisateur {
 		});
 		btnNewButton_3.setBounds(296, 225, 117, 29);
 		frame.getContentPane().add(btnNewButton_3);
+		
+		JButton btnNewButton = new JButton("Retour");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				admin ad = new admin();
+				ad.run();
+				frame.dispose();
+			}
+		});
+		btnNewButton.setBounds(23, 225, 117, 29);
+		frame.getContentPane().add(btnNewButton);
 		
 
 	}

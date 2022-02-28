@@ -3,17 +3,11 @@ package Vue;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.Color;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Component;
-import javax.swing.Box;
 
-public class admin {
+public class infirmiere {
 
 	private JFrame frame;
 
@@ -22,19 +16,17 @@ public class admin {
 	 */
 			public void run() {
 				try {
-					admin window = new admin();
+					infirmiere window = new infirmiere();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-	
-	
+	}
 
 	/**
 	 * Create the application.
 	 */
-	public admin() {
+	public infirmiere() {
 		initialize();
 	}
 
@@ -43,50 +35,44 @@ public class admin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("RDV");
+		JButton btnNewButton = new JButton("Traitement");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				rdv rdn= new rdv();
-				rdn.run();
+				medicaments tra = new medicaments();
+				tra.run();
 				frame.dispose();
+				
 			}
 		});
-		btnNewButton.setBounds(180, 50, 205, 40);
+		btnNewButton.setBounds(218, 6, 199, 42);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Ajout utilisateur");
+		JButton btnNewButton_1 = new JButton("chambre");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ajoututilisateur ajtu = new ajoututilisateur();
-				ajtu.run();
-				frame.dispose();
 			}
 		});
-		btnNewButton_1.setBounds(180, 102, 205, 40);
+		btnNewButton_1.setBounds(218, 60, 199, 42);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Hospitalisation");
+		JButton btnNewButton_2 = new JButton("Commande");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				hospitalisation hos = new hospitalisation();
-				hos.run();
+				commandemedi commed = new commandemedi();
+				commed.run();
 				frame.dispose();
+				
 			}
 		});
-		btnNewButton_2.setBounds(180, 154, 205, 40);
+		btnNewButton_2.setBounds(218, 122, 203, 42);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Voir des medecins");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_3.setBounds(180, 200, 205, 40);
+		JButton btnNewButton_3 = new JButton("Médicament");
+		btnNewButton_3.setBounds(224, 189, 193, 42);
 		frame.getContentPane().add(btnNewButton_3);
 		
 		JButton btnNewButton_4 = new JButton("Déconnexion");
@@ -96,19 +82,8 @@ public class admin {
 				frame.dispose();
 			}
 		});
-		btnNewButton_4.setBounds(17, 6, 117, 29);
+		btnNewButton_4.setBounds(6, 6, 123, 42);
 		frame.getContentPane().add(btnNewButton_4);
-		JButton btnNewButton_5 = new JButton("Crée dossier patient");
-		btnNewButton_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dossierpatient dopat = new dossierpatient();
-				dopat.run();
-				frame.dispose();
-			}
-		});
-		btnNewButton_5.setBounds(17, 72, 151, 70);
-		frame.getContentPane().add(btnNewButton_5);
-		
-		
 	}
+
 }
