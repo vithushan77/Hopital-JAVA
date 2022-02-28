@@ -18,8 +18,7 @@ public class commandemedi {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	
 			public void run() {
 				try {
 					commandemedi window = new commandemedi();
@@ -27,8 +26,6 @@ public class commandemedi {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
 	}
 
 	/**
@@ -47,7 +44,7 @@ public class commandemedi {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Commander");
 		btnNewButton.setBounds(305, 216, 117, 29);
 		frame.getContentPane().add(btnNewButton);
 		
@@ -68,7 +65,7 @@ public class commandemedi {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nom medicament");
-		lblNewLabel.setBounds(31, 57, 107, 16);
+		lblNewLabel.setBounds(16, 57, 122, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JSpinner spinner = new JSpinner();

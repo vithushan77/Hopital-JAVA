@@ -52,6 +52,10 @@ public class infirmiere {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("chambre");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_1.setBounds(218, 60, 199, 42);
 		frame.getContentPane().add(btnNewButton_1);
 		

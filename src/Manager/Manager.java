@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -480,10 +481,107 @@ public class Manager {
 		}
 
 		
+		
+		
 	return listeheure;
 	}
+	public ArrayList<Object[]> hospitalisation(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		
+		ArrayList<Object[]> hospitalisations = new ArrayList<>();
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT nom, prenom, numeroChambre, choix FROM hospitalisation \n"
+				+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
+				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id";
+		ResultSet res;
+		try {
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				
+				String Nom = res.getString("Nom");
+				String Prenom = res.getString("Prenom");
+				int numeroChambre = res.getInt("numeroChambre");
+				String choix = res.getString("choix");
+				
+				Object[] data = {Nom, Prenom,numeroChambre,choix};
+				Object hospitalisation;
+				hospitalisations.add(data);
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
+		
+	return hospitalisations;
 
+	}
 
+	public ArrayList<String> recupatient(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT id, Nom From patient";
+		System.out.println(sql);
+		ArrayList<String>listepati = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchepati = stm.executeQuery(sql);
+			while(resultatrecherchepati.next()){
+				listepati.add(resultatrecherchepati.getString("Nom"));
+
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return listepati;
+	}
+	public ArrayList<Patient> recupatients(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * From patient";
+		System.out.println(sql);
+		ArrayList<Patient>listepati = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchepati = stm.executeQuery(sql);
+			while(resultatrecherchepati.next()){
+				listepati.add(new Patient(
+						resultatrecherchepati.getInt("id"),
+						sql,
+						sql,
+						sql,
+						sql,
+						sql,
+						sql));
+				//listepati.add(resultatrecherchepati.getString("Nom"));
+
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return listepati;
+	}
+	
+	
 
 }

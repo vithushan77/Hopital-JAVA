@@ -1,6 +1,8 @@
 package Model;
 
-public class Patient {
+public class Patient extends Object{
+
+
 	private int id;
 	private String nomPatient;
 	private String prenomPatient;
@@ -75,6 +77,9 @@ public class Patient {
 	public void setSecuriteSocial(String SecuriteSocial) {
 		this.SecuriteSocial = SecuriteSocial;
 	}
-
+	@Override
+	public String toString() {
+		return "Patient [nomPatient=" + nomPatient + ", prenomPatient=" + prenomPatient + "]";
+	}
 
 }
