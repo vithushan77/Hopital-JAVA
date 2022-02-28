@@ -57,8 +57,8 @@ public class motdepasseoublie {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Mot de passe oublié");
-		lblNewLabel.setBounds(149, 10, 172, 13);
+		JLabel lblNewLabel = new JLabel("Mot de passe oublié, Vérifiez vos spams !");
+		lblNewLabel.setBounds(107, 10, 223, 56);
 		frame.getContentPane().add(lblNewLabel);
 		
 		textField = new JTextField();
