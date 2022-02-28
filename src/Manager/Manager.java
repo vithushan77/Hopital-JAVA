@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
 import Model.Patient;
 import Model.Medicaments;
 import Model.Utilisateur;
@@ -24,20 +26,23 @@ public class Manager {
 	private int r1;
 	private ResultSet Nomfilm;
 	private String desc;
+	private String desc2;
 	private ResultSet r2;
 	private ResultSet r3;
 	public int exist;
 	public int admin;
+	private Array tableau;
 	boolean co = false;
+	private String co2;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
 	private static final String HEADER = "Nom, Quantité, Toxicité";
 	
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -51,7 +56,7 @@ public class Manager {
 		return cnx;
 	}
 
-	public boolean connexionuser(Utilisateur ut) {
+	public String connexionuser(Utilisateur ut) {
 		
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -71,18 +76,27 @@ public class Manager {
 				System.out.println(desc);
 				System.out.println(ut.getMdp());
 			}
+				String re3 = "SELECT status FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
+				System.out.println(re3);
+					ResultSet resultatrecherche2 = stm.executeQuery(re3);
+					while(resultatrecherche2.next()){
+						// Aﬃchage des lignes qui comporte les caractères de "recherche"
+						desc2 = resultatrecherche2.getString("status");
+						System.out.println(desc2);
+						System.out.println(ut.getMdp());
+			}
 			if(ut.getMdp().equals(desc)) {
-				co = true;
+				co2 = desc2;
 			}
 			else {
-				co = false;
+				co2 = "";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(co);
-		return co;
+		System.out.println(co2);
+		return co2;
 	}
 	
 	

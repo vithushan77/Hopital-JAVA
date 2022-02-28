@@ -22,7 +22,7 @@ public class connexion {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	private boolean test;
+	private String test;
 
 	/**
 	 * Launch the application.
@@ -86,9 +86,15 @@ public class connexion {
 				Manager ma = new Manager();
 				test = ma.connexionuser(ut);
 				System.out.println(test);
-				if(test) {
+				if(test.equals("admin")) {
 					admin ad = new admin();
 					ad.run();
+					frame.dispose();
+				}
+				if(test.equals("administratif")) {
+					administratif adm = new administratif();
+					adm.run();
+					frame.dispose();
 				}
 				else {
 					JLabel lblNewLabel_2 = new JLabel("Email inexistant ou mot de passe incorrect !");
