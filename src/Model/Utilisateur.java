@@ -7,16 +7,16 @@ public class Utilisateur {
 	private String mail;
 	private String mdp;
 	private String status;
-	private boolean etatCompte;
+	private String etatCompte;
 
-	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status, boolean etatCompte) {
+	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status, String test) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
 		this.mdp = mdp;
 		this.status = status;
-		this.etatCompte = etatCompte;
+		this.etatCompte = test;
 	}
 
 
@@ -69,11 +69,11 @@ public class Utilisateur {
 		this.status = status;
 		}
 
-	public boolean getEtatCompte() {
+	public String getEtatCompte() {
 		return this.etatCompte;
 		}
 
-	public void setEtatCompte(boolean etatCompte) {
+	public void setEtatCompte(String etatCompte) {
 		this.etatCompte = etatCompte;
 		}
 

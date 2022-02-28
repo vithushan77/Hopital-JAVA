@@ -494,11 +494,6 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 		return co2;
 	}
 
-}
-
-	return listecham;
-
-	}
 	public ArrayList<String>medecins(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
