@@ -22,13 +22,13 @@ public class connexion {
 
 	private JFrame frame;
 	private JTextField textField;
-	private boolean test;
-	
+	private JTextField textField_1;
+	private String test;
 
 	/**
 	 * Launch the application.
 	 */
-	
+
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,27 +59,28 @@ public class connexion {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+		frame.setVisible(true);
+
 		textField = new JTextField();
 		textField.setBounds(151, 27, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
-		
+
+
 
 		JPasswordField password = new JPasswordField();
 		password.setBounds(151, 77, 130, 26);
 		frame.getContentPane().add(password);
-		
+
 		JLabel lblNewLabel = new JLabel("Mail/ Identifiant :");
 		lblNewLabel.setBounds(19, 32, 120, 16);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Mot de passe :");
 		lblNewLabel_1.setBackground(new Color(0, 191, 255));
 		lblNewLabel_1.setBounds(19, 82, 103, 16);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,9 +90,14 @@ public class connexion {
 				Manager ma = new Manager();
 				test = ma.connexionuser(ut);
 				System.out.println(test);
-				if(test) {
+				if(test.equals("admin")) {
 					admin ad = new admin();
 					ad.run();
+					frame.dispose();
+				}
+				if(test.equals("administratif")) {
+					administratif adm = new administratif();
+					adm.run();
 					frame.dispose();
 				}
 				else {
@@ -105,17 +111,21 @@ public class connexion {
 		});
 		btnNewButton.setBounds(293, 143, 117, 29);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("Mot de passe oublié");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+
+				motdepasseoublie mdp = new motdepasseoublie();
+				mdp.run();
+				frame.dispose();
+				}
 		});
 		btnNewButton_1.setBounds(6, 143, 159, 29);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		
+
+
 	}
 
-	
+
 }

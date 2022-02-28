@@ -28,20 +28,23 @@ public class Manager {
 	private int r1;
 	private ResultSet Nomfilm;
 	private String desc;
+	private String desc2;
 	private ResultSet r2;
 	private ResultSet r3;
 	public int exist;
 	public int admin;
+	private Array tableau;
 	boolean co = false;
+	private String co2;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
 	private static final String HEADER = "Nom, Quantite, Toxicite";
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -55,7 +58,7 @@ public class Manager {
 		return cnx;
 	}
 
-	public boolean connexionuser(Utilisateur ut) {
+	public String connexionuser(Utilisateur ut) {
 
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -75,18 +78,27 @@ public class Manager {
 				System.out.println(desc);
 				System.out.println(ut.getMdp());
 			}
+				String re3 = "SELECT status FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
+				System.out.println(re3);
+					ResultSet resultatrecherche2 = stm.executeQuery(re3);
+					while(resultatrecherche2.next()){
+						// Aﬃchage des lignes qui comporte les caractères de "recherche"
+						desc2 = resultatrecherche2.getString("status");
+						System.out.println(desc2);
+						System.out.println(ut.getMdp());
+			}
 			if(ut.getMdp().equals(desc)) {
-				co = true;
+				co2 = desc2;
 			}
 			else {
-				co = false;
+				co2 = "";
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(co);
-		return co;
+		System.out.println(co2);
+		return co2;
 	}
 
 
@@ -157,7 +169,7 @@ public class Manager {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
-	
+
 	public void SupprimerProfil(int id) throws SQLException {
 		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
@@ -356,7 +368,6 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
-	
 
 	public ArrayList<String> recupuser() {
 		Connection co_bdd = this.connexionbdd();
@@ -413,22 +424,77 @@ public class Manager {
 		java.sql.Statement stm = null;
 		try {
 			stm = co_bdd.createStatement();
-		}
-		catch (SQLException e1) {
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String sql= "SELECT id, numeroChambre FROM chambres";
+		String sql ="SELECT id, libelle From heure";
 		System.out.println(sql);
-		ArrayList<String>listecham = new ArrayList<>();
-		try {
-			ResultSet resultatrecherchecham = stm.executeQuery(sql);
-			while(resultatrecherchecham.next()){
-				listecham.add(resultatrecherchecham.getString("numeroChambre"));
-
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("libelle"));
 			}
-		}catch (SQLException e) {
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+
+	}
+	public void UpdateVerifMdp(String mail, int verifmdp) throws SQLException {
+		String sql = "UPDATE utilisateur SET verificationmdp = ? WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, verifmdp);
+		pstm.setString(2, mail);
+
+		int rowExpunged = pstm.executeUpdate();
+		System.out.println("Le produit a bel et bien été supprimé");
+	}
+
+
+public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
+
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String re2 = "SELECT verificationmdp FROM utilisateur WHERE mail = '" + mail + "'";
+		System.out.println(re2);
+		try {
+			ResultSet resultatrecherche = stm.executeQuery(re2);
+			while(resultatrecherche.next()){
+				// Aﬃchage des lignes qui comporte les caractères de "recherche"
+				desc = resultatrecherche.getString("verificationmdp");
+				System.out.println(desc);
+				System.out.println(nombre);
+				System.out.println(nouveauMdp);
+				System.out.println(mail);
+			}
+			if(nombre.equals(desc)) {
+				String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ?";
+				PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+				pstm.setString(1, nouveauMdp);
+				pstm.setString(2, mail);
+				int rowExpunged = pstm.executeUpdate();
+				co2 = "1";
+			}
+			else {
+				co2 = "0";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(co2);
+		return co2;
+	}
+
+}
 
 	return listecham;
 
@@ -457,7 +523,7 @@ public class Manager {
 
 	return listemed;
 	}
-	
+
 	public ArrayList<String>heure(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -480,15 +546,15 @@ public class Manager {
 			e.printStackTrace();
 		}
 
-		
-		
-		
+
+
+
 	return listeheure;
 	}
 	public ArrayList<Object[]> hospitalisation(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
-		
+
 		ArrayList<Object[]> hospitalisations = new ArrayList<>();
 		try {
 			stm = co_bdd.createStatement();
@@ -503,24 +569,24 @@ public class Manager {
 		try {
 			res = stm.executeQuery(sql);
 			while(res.next()) {
-				
+
 				String Nom = res.getString("Nom");
 				String Prenom = res.getString("Prenom");
 				int numeroChambre = res.getInt("numeroChambre");
 				String choix = res.getString("choix");
-				
+
 				Object[] data = {Nom, Prenom,numeroChambre,choix};
 				Object hospitalisation;
 				hospitalisations.add(data);
 			}
-				
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
-		
+
+
 	return hospitalisations;
 
 	}
@@ -581,7 +647,7 @@ public class Manager {
 
 	return listepati;
 	}
-	
-	
+
+
 
 }
