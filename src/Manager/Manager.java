@@ -131,10 +131,9 @@ public class Manager {
 	}
 	
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
+		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
 	    while(rs.next()) {
 	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
@@ -170,6 +169,37 @@ public class Manager {
 			System.out.println("Profil mis à jour");
 		}
 	}
+	
+	public void ModifierMdp(String mdp, String mail) throws SQLException {
+		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+		String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, hashedPwd);
+		pstm.setString(2, mail);
+		int rowUpdated = pstm.executeUpdate();
+		System.out.println("Mot de passe modifié avec succès");
+	}
+	
+	/*
+	public void getModification(String mail) throws SQLException {
+		String sql = "SELECT nom, prenom, mdp, mail, status FROM utilisateur WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			ArrayList<Object> profilModifie = new ArrayList<Object>();
+			profilModifie.add(rs.getString("nom"));
+			profilModifie.add(rs.getString("prenom"));
+			profilModifie.add(rs.getString("mail"));
+			profilModifie.add(rs.getString("mdp"));
+			profilModifie.add(rs.getString("status"));
+			
+			for(int i = 0; i < profilModifie.size(); i++) {
+				System.out.println(profilModifie.get(i));
+			}
+		}
+	}
+	*/
 	
 	public void SupprimerProfil(int id) throws SQLException {
 		/*Le profil ne peut être supprimé si, et seulement si, un salarié licencié ou un patient en fait la demande*/
