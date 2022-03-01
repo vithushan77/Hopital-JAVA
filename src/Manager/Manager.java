@@ -180,11 +180,10 @@ public class Manager {
 		System.out.println("Mot de passe modifié avec succès");
 	}
 	
-	/*
-	public void getModification(String mail) throws SQLException {
-		String sql = "SELECT nom, prenom, mdp, mail, status FROM utilisateur WHERE mail = ?";
+	public void getModification(int id) throws SQLException {
+		String sql = "SELECT nom, prenom, mdp, mail, role FROM utilisateur WHERE id = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, mail);
+		pstm.setInt(1, id);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
 			ArrayList<Object> profilModifie = new ArrayList<Object>();
@@ -192,14 +191,13 @@ public class Manager {
 			profilModifie.add(rs.getString("prenom"));
 			profilModifie.add(rs.getString("mail"));
 			profilModifie.add(rs.getString("mdp"));
-			profilModifie.add(rs.getString("status"));
+			profilModifie.add(rs.getString("role"));
 			
 			for(int i = 0; i < profilModifie.size(); i++) {
 				System.out.println(profilModifie.get(i));
 			}
 		}
 	}
-	*/
 	
 	public void SupprimerProfil(int id) throws SQLException {
 		/*Le profil ne peut être supprimé si, et seulement si, un salarié licencié ou un patient en fait la demande*/
