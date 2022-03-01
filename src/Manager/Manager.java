@@ -230,6 +230,25 @@ public class Manager {
 		}
 	}
 	
+	public void CommandeMedicaments(String nomMedicament, int quantite) throws SQLException {
+		/*
+		 * Gestion de commande de stock de médicaments pour les infirmières 
+		 */
+		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nomMedicament);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			int total = rs.getInt("quantite");
+			sql = "UPDATE medicaments SET quantite = ? WHERE nomMedicament = ?";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setInt(1, total - quantite);
+			pstm.setString(2, nomMedicament);
+			pstm.execute();
+			System.out.println("Commande effectuée");
+		}
+	}
+	
 	public void MajMedicaments(String nomMedicament, int quantite) throws SQLException {
 		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -255,7 +274,7 @@ public class Manager {
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
 	
-	public void ExporterMedicaments() throws SQLException {
+	public ArrayList<Medicaments> ExporterMedicaments() throws SQLException {
 		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
 		String sql = "SELECT * FROM medicaments";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -265,7 +284,7 @@ public class Manager {
 		}
 		FileWriter file = null;
 		try {
-			file = new FileWriter("Liste des médicaments.csv");
+			file = new FileWriter("Liste des médicaments.txt");
 			file.append(HEADER);
 			file.append(SEPARATOR);
 			
@@ -283,6 +302,7 @@ public class Manager {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return listeMedicaments;
 	}
 	
 	public void LesUtilisateurs() throws SQLException {
