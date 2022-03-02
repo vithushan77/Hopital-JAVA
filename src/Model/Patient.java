@@ -1,6 +1,8 @@
 package Model;
 
-public class Patient {
+public class Patient extends Object{
+
+
 	private int id;
 	private String nomPatient;
 	private String prenomPatient;
@@ -8,20 +10,20 @@ public class Patient {
 	private String adresse;
 	private String mutuelle;
 	private String SecuriteSocial;
-	
+
 	public Patient(int id, String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle,
-			String securiteSocial) {
+			String SecuriteSocial) {
 		this.id = id;
 		this.nomPatient = nomPatient;
 		this.prenomPatient = prenomPatient;
 		this.telephone = telephone;
 		this.adresse = adresse;
 		this.mutuelle = mutuelle;
-		this.SecuriteSocial = securiteSocial;
+		this.SecuriteSocial = SecuriteSocial;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -29,7 +31,7 @@ public class Patient {
 	}
 
 	public String getNomPatient() {
-		return nomPatient;
+		return this.nomPatient;
 	}
 
 	public void setNomPatient(String nomPatient) {
@@ -37,7 +39,7 @@ public class Patient {
 	}
 
 	public String getPrenomPatient() {
-		return prenomPatient;
+		return this.prenomPatient;
 	}
 
 	public void setPrenomPatient(String prenomPatient) {
@@ -45,7 +47,7 @@ public class Patient {
 	}
 
 	public String getTelephone() {
-		return telephone;
+		return this.telephone;
 	}
 
 	public void setTelephone(String telephone) {
@@ -53,7 +55,7 @@ public class Patient {
 	}
 
 	public String getAdresse() {
-		return adresse;
+		return this.adresse;
 	}
 
 	public void setAdresse(String adresse) {
@@ -61,7 +63,7 @@ public class Patient {
 	}
 
 	public String getMutuelle() {
-		return mutuelle;
+		return this.mutuelle;
 	}
 
 	public void setMutuelle(String mutuelle) {
@@ -69,26 +71,23 @@ public class Patient {
 	}
 
 	public String getSecuriteSocial() {
-		return SecuriteSocial;
+		return this.SecuriteSocial;
 	}
 
-	public void setString(String SecuriteSocial) {
+	public void setSecuriteSocial(String SecuriteSocial) {
 		this.SecuriteSocial = SecuriteSocial;
-<<<<<<< Updated upstream
 		}
-	
-	
-	
+
+
+
 	public void setSecuriteSocial(String securiteSocial) {
 		SecuriteSocial = securiteSocial;
 	}
-	
-=======
-	}
+
 	@Override
 	public String toString() {
-		return " " + nomPatient + "  " + prenomPatient + "";
+		return "Patient [nomPatient=" + nomPatient + ", prenomPatient=" + prenomPatient + "]";
 	}
->>>>>>> Stashed changes
+
 
 }

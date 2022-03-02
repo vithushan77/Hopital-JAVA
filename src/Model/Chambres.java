@@ -1,11 +1,11 @@
 package Model;
 
 public class Chambres {
-	
+
 	private int id;
 	private int numeroChambre;
 	private String choix;
-	
+
 	public Chambres(int id, int numeroChambre, String choix) {
 		this.id = id;
 		this.numeroChambre = numeroChambre;
@@ -38,6 +38,6 @@ public class Chambres {
 	public String toString() {
 		return "N° " + numeroChambre + "  Contient " + choix + "";
 	}
-	
-	
+
+
 }

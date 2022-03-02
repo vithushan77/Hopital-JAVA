@@ -71,7 +71,7 @@ public class chambrepati {
 				},0
 				);
 		table = new JTable(tblModel);
-		
+
 		table.getColumnModel().getColumn(0).setPreferredWidth(135);
 		table.getColumnModel().getColumn(1).setPreferredWidth(164);
 		table.getColumnModel().getColumn(2).setPreferredWidth(300);
@@ -82,29 +82,29 @@ public class chambrepati {
 			tblModel.addRow(o.get(i));
 		}
 		scrollPane.setViewportView(table);
-		
-		
+
+
 		//ArrayList<String>liste= m.recupatient();
 		ArrayList<Patient>liste = 	m.recupatients();
 
 		JComboBox<Patient> comboBox = new JComboBox(liste.toArray());
 		comboBox.setBounds(17, 83, 171, 53);
 		frame.getContentPane().add(comboBox);
-		
+
 		ArrayList<Chambres>liste1 = m.recuchambres();
 
 		JComboBox<Chambres> comboBox_1 = new JComboBox(liste1.toArray());
 		comboBox_1.setBounds(17, 238, 171, 36);
 		frame.getContentPane().add(comboBox_1);
-		
+
 		JLabel lblNewLabel = new JLabel("Nom");
 		lblNewLabel.setBounds(31, 68, 113, 23);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Numéo de chambre");
 		lblNewLabel_1.setBounds(31, 212, 155, 24);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
