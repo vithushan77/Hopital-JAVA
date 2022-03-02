@@ -79,11 +79,6 @@ public class Patient extends Object{
 		}
 
 
-
-	public void setSecuriteSocial(String securiteSocial) {
-		SecuriteSocial = securiteSocial;
-	}
-
 	@Override
 	public String toString() {
 		return "Patient [nomPatient=" + nomPatient + ", prenomPatient=" + prenomPatient + "]";

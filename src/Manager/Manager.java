@@ -43,9 +43,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -650,61 +650,7 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 	}
 
 
-	public ArrayList<String> recupatient(){
-		Connection co_bdd = this.connexionbdd();
-		java.sql.Statement stm = null;
-		try {
-			stm = co_bdd.createStatement();
-		}
-		catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		String sql= "SELECT id, Nom From patient";
-		System.out.println(sql);
-		ArrayList<String>listepati = new ArrayList<>();
-		try {
-			ResultSet resultatrecherchepati = stm.executeQuery(sql);
-			while(resultatrecherchepati.next()){
-				listepati.add(resultatrecherchepati.getString("Nom"));
-
-			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	return listepati;
-	}
-	public ArrayList<Patient> recupatients(){
-		Connection co_bdd = this.connexionbdd();
-		java.sql.Statement stm = null;
-		try {
-			stm = co_bdd.createStatement();
-		}
-		catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		String sql= "SELECT * From patient";
-		System.out.println(sql);
-		ArrayList<Patient>listepati = new ArrayList<>();
-		try {
-			ResultSet resultatrecherchepati = stm.executeQuery(sql);
-			while(resultatrecherchepati.next()){
-				listepati.add(new Patient(
-						resultatrecherchepati.getInt("id"),
-						sql,
-						sql,
-						sql,
-						sql,
-						sql,
-						sql));
-				//listepati.add(resultatrecherchepati.getString("Nom"));
-
-			}
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	return listepati;
-	}
+	
+	
 
 }
