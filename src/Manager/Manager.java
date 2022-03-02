@@ -171,13 +171,17 @@ public class Manager {
 	}
 	
 	public void ModifierMdp(String mdp, String mail) throws SQLException {
-		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
-		String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
-		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, hashedPwd);
-		pstm.setString(2, mail);
-		int rowUpdated = pstm.executeUpdate();
-		System.out.println("Mot de passe modifié avec succès");
+		try {
+			String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+			String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
+			PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, hashedPwd);
+			pstm.setString(2, mail);
+			int rowUpdated = pstm.executeUpdate();
+			System.out.println("Mot de passe modifié avec succès");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void getModification(int id) throws SQLException {

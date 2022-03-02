@@ -7,6 +7,6 @@ public class Test {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		Manager manager = new Manager();
-		manager.VerifyOAuth("d.marc@outlook.fr", "LeagueOfLegends");
+		manager.ModifierMdp("Dune1", "sipraseuth-noah@outlook.fr");
 		}
 	}
