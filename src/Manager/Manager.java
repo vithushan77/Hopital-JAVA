@@ -19,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import Model.Patient;
+import Model.Chambres;
 import Model.Medicaments;
 import Model.Utilisateur;
 import Model.Patient;
@@ -435,8 +436,73 @@ public class Manager {
 	
 }
 
+<<<<<<< Updated upstream
+=======
+	return listepati;
+	}
+	public ArrayList<Patient> recupatients(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * From patient";
+		System.out.println(sql);
+		ArrayList<Patient>listepati = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchepati = stm.executeQuery(sql);
+			while(resultatrecherchepati.next()){
+				listepati.add(new Patient(
+						resultatrecherchepati.getInt("id"),
+						resultatrecherchepati.getString("Nom"),
+						resultatrecherchepati.getString("Prenom"),
+						resultatrecherchepati.getString("Nom"),
+						resultatrecherchepati.getString("Nom"),
+						sql,
+						sql));
+				//listepati.add(resultatrecherchepati.getString("Nom"));
+>>>>>>> Stashed changes
 
 
+<<<<<<< Updated upstream
+=======
+	return listepati;
+	}
+	
+	public ArrayList<Chambres> recuchambres(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * From chambres";
+		System.out.println(sql);
+		ArrayList<Chambres>listecham = new ArrayList<>();
+		try {
+			ResultSet resultatrecherchechamb = stm.executeQuery(sql);
+			while(resultatrecherchechamb.next()){
+				listecham.add(new Chambres(
+						resultatrecherchechamb.getInt("id"),
+						resultatrecherchechamb.getInt("numeroChambre"),
+						resultatrecherchechamb.getString("choix")
+						));
+				//listepati.add(resultatrecherchepati.getString("Nom"));
+
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	return listecham;
+	}
+	
+>>>>>>> Stashed changes
 
 
 

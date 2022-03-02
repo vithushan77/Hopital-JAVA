@@ -74,6 +74,7 @@ public class Patient {
 
 	public void setString(String SecuriteSocial) {
 		this.SecuriteSocial = SecuriteSocial;
+<<<<<<< Updated upstream
 		}
 	
 	
@@ -82,5 +83,12 @@ public class Patient {
 		SecuriteSocial = securiteSocial;
 	}
 	
+=======
+	}
+	@Override
+	public String toString() {
+		return " " + nomPatient + "  " + prenomPatient + "";
+	}
+>>>>>>> Stashed changes
 
 }
