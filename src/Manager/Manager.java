@@ -36,7 +36,7 @@ public class Manager {
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
 	private static final String HEADER = "Nom, Quantité, Toxicité";
-	
+
 	public Connection connexionbdd (){
 		Connection cnx = null;
 		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
@@ -56,7 +56,7 @@ public class Manager {
 	}
 
 	public boolean connexionuser(Utilisateur ut) {
-		
+
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
 		try {
@@ -88,8 +88,8 @@ public class Manager {
 		System.out.println(co);
 		return co;
 	}
-	
-	
+
+
 	public void inscription(Utilisateur ajut){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm1 = null;
@@ -109,9 +109,9 @@ public class Manager {
 			// TODO Auto-generated catch block
 			//System.out.println("hello");
 			e.printStackTrace();
-			}
 		}
-	
+	}
+
 	public void AjouterUtilisateurs(String nom, String prenom, String mail, String mdp, String role, boolean etatCompte) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -122,7 +122,7 @@ public class Manager {
 		} else {
 			String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
 			sql = "INSERT INTO utilisateur(nom, prenom, mail, mdp, role, etatCompte) VALUES(?,?,?,?,?,?)";
-		    pstm = this.connexionbdd().prepareStatement(sql);
+			pstm = this.connexionbdd().prepareStatement(sql);
 			pstm.setString(1, nom);
 			pstm.setString(2, prenom);
 			pstm.setString(3, mail);
@@ -133,7 +133,7 @@ public class Manager {
 			System.out.println("Un nouvel utilisateur a été ajouté");
 		}
 	}
-	
+
 	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
@@ -149,8 +149,8 @@ public class Manager {
 	    	}
 		}
 	}
-	*/
-	
+	 */
+
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
 			/*
@@ -162,7 +162,7 @@ public class Manager {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
-	
+
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
 		String sql = "SELECT * FROM utilisateur WHERE id = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -179,12 +179,12 @@ public class Manager {
 			System.out.println("Profil mis à jour");
 		}
 	}
-	
+
 	public void DesactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
+
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
 			System.out.println("Compte désactivé");
@@ -192,12 +192,12 @@ public class Manager {
 			System.out.println("Erreur");
 		}
 	}
-	
+
 	public void ReactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 1 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		
+
 		int rowUpdated = pstm.executeUpdate();
 		if(rowUpdated > 0) {
 			System.out.println("Le compte a été réactivé");
@@ -205,7 +205,7 @@ public class Manager {
 			System.out.println("Une erreur est survenue lors de la requête de réactivation");
 		}
 	}
-	
+
 	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
 		String sql = "SELECT * FROM medicaments";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -220,7 +220,7 @@ public class Manager {
 		}
 		return laListeMedic;
 	}
-	
+
 	public void AjouterMedicaments(String nomMedicament, int quantite, String toxicite) throws SQLException {
 		String sql = "SELECT nomMedicament FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -238,7 +238,7 @@ public class Manager {
 			System.out.println("Ajout du médicament effectué avec succès");
 		}
 	}
-	
+
 	public void MajMedicaments(String nomMedicament, int quantite) throws SQLException {
 		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -254,16 +254,16 @@ public class Manager {
 			System.out.println("Mise à jour du produit effectuée avec succès");
 		}
 	}
-	
+
 	public void SupprimerMedicaments(String nomMedicament) throws SQLException {
 		String sql = "DELETE FROM medicaments WHERE nomMedicament = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, nomMedicament);
-		
+
 		int rowExpunged = pstm.executeUpdate();
 		System.out.println("Le produit a bel et bien été supprimé");
 	}
-	
+
 	/*
 	public void ExporterMedicaments() throws SQLException {
 		ArrayList<Medicaments> listeMedicaments = new ArrayList<Medicaments>();
@@ -278,7 +278,7 @@ public class Manager {
 			file = new FileWriter("Liste des médicaments.csv");
 			file.append(HEADER);
 			file.append(SEPARATOR);
-			
+
 			for(Medicaments m : listeMedicaments) {
 				file.append(m.getNomMedicament());
 				file.append(DELIMITER);
@@ -292,8 +292,8 @@ public class Manager {
 			e.printStackTrace();
 		}
 	}
-	*/
-	
+	 */
+
 	public void LesUtilisateurs() throws SQLException {
 		String sql = "SELECT nom, prenom, mail, role FROM utilisateur";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -304,13 +304,13 @@ public class Manager {
 			listeUtilisateurs.add(rs.getString("prenom"));
 			listeUtilisateurs.add(rs.getString("mail"));
 			listeUtilisateurs.add(rs.getString("role"));
-			
+
 			for(int i = 0; i < listeUtilisateurs.size(); i++) {
 				System.out.println(listeUtilisateurs.get(i));
 			}
 		}
 	}
-	
+
 	public void informationsupp(Patient dopt) {
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm1 = null;
@@ -330,8 +330,8 @@ public class Manager {
 			// TODO Auto-generated catch block
 			//System.out.println("hello");
 			e.printStackTrace();
-			}
-		
+		}
+
 	}
 
 	public void AjouterPatient(String nomPatient, String prenomPatient, String telephone, String adresse, String mutuelle, String idSecuriteSocial) throws SQLException {
@@ -354,8 +354,8 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
-	
-	
+
+
 	public ArrayList<String> recupuser() {
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -373,13 +373,13 @@ public class Manager {
 			while(resultatrecherche.next()) {
 				liste.add(resultatrecherche.getString("nom"));
 			}
-			}catch (SQLException e) {
-				e.printStackTrace();
-			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return liste;
-		
+
 	}
-	
+
 	public ArrayList<String> recupmed(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -396,16 +396,16 @@ public class Manager {
 			ResultSet resultatrecherchemed = stm.executeQuery(sql);
 			while(resultatrecherchemed.next()){
 				listemed.add(resultatrecherchemed.getString("nomMedicament"));
-				
+
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-	System.out.println(listemed);
-	return listemed;
+
+		System.out.println(listemed);
+		return listemed;
 	}
-	
+
 	public ArrayList<String>recupcham(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -422,24 +422,16 @@ public class Manager {
 			ResultSet resultatrecherchecham = stm.executeQuery(sql);
 			while(resultatrecherchecham.next()){
 				listecham.add(resultatrecherchecham.getString("numeroChambre"));
-				
+
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
-	return listecham;
-		
-	}
-	
-	
-	
-}
 
-<<<<<<< Updated upstream
-=======
-	return listepati;
+		return listecham;
+
 	}
+
 	public ArrayList<Patient> recupatients(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -464,14 +456,14 @@ public class Manager {
 						sql,
 						sql));
 				//listepati.add(resultatrecherchepati.getString("Nom"));
->>>>>>> Stashed changes
 
-
-<<<<<<< Updated upstream
-=======
-	return listepati;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return listepati;
 	}
-	
+
 	public ArrayList<Chambres> recuchambres(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -499,10 +491,9 @@ public class Manager {
 			e.printStackTrace();
 		}
 
-	return listecham;
+		return listecham;
 	}
-	
->>>>>>> Stashed changes
+}
 
 
 
