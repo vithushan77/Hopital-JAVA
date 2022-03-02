@@ -108,6 +108,8 @@ public class chambrepati {
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String infopati = JComboBox.getSelectedItem().toString();
+
 			}
 		});
 		btnNewButton.setBounds(69, 340, 117, 29);

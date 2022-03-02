@@ -81,7 +81,7 @@ public class Patient extends Object{
 
 	@Override
 	public String toString() {
-		return "Patient [nomPatient=" + nomPatient + ", prenomPatient=" + prenomPatient + "]";
+		return " " + nomPatient + " " + prenomPatient + "";
 	}
 
 
