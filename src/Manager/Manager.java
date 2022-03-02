@@ -147,10 +147,9 @@ public class Manager {
 	}
 
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
-		String sql = "SELECT * FROM utilisateur WHERE mail = ? AND mdp = ? LIMIT 1";
+		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-		pstm.setString(2, mdp);
 		ResultSet rs = pstm.executeQuery();
 	    while(rs.next()) {
 	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
