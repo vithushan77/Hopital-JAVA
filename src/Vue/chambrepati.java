@@ -86,10 +86,11 @@ public class chambrepati {
 
 		//ArrayList<String>liste= m.recupatient();
 		ArrayList<Patient>liste = 	m.recupatients();
-
+		
 		JComboBox<Patient> comboBox = new JComboBox(liste.toArray());
 		comboBox.setBounds(17, 83, 171, 53);
 		frame.getContentPane().add(comboBox);
+
 
 		ArrayList<Chambres>liste1 = m.recuchambres();
 
@@ -108,7 +109,12 @@ public class chambrepati {
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String infopati = JComboBox.getSelectedItem().toString();
+				Object selectValue = comboBox.getSelectedItem();
+				Object selectValue1 = comboBox_1.getSelectedItem();
+
+				
+				
+
 
 			}
 		});
