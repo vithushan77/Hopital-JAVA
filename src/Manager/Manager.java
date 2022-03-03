@@ -43,9 +43,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -195,6 +195,16 @@ public class Manager {
 			pstm.execute();
 			System.out.println("Profil mis à jour");
 		}
+	}
+	
+	public void ModifierMdp(String mdp, String mail) throws SQLException {
+		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+		String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, hashedPwd);
+		pstm.setString(2, mail);
+		int rowUpdated = pstm.executeUpdate();
+		System.out.println("Mot de passe modifié");
 	}
 
 	public void DesactiverCompte(String mail) throws SQLException {
