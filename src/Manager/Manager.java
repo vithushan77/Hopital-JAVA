@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -141,15 +142,18 @@ public class Manager {
 		}
 	}
 	
-	public void VerifEtatCompte(boolean etatCompte) {
-		if(etatCompte) {
-			/*
-			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-			 * en fonction de son rôle/status
-			 */
-			System.out.println("Bienvenue");
-		} else {
-			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
+	public void VerifEtatCompte(String mail) throws SQLException{
+		boolean etatCompte = true;
+		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			if(etatCompte) {
+				System.out.println("Bienvenue");
+			} else {
+				System.out.println("Votre compte a été désactivé. Veuillez contacter l'administrateur");
+			}
 		}
 	}
 	
