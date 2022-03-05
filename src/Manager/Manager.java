@@ -147,7 +147,6 @@ public class Manager {
 		}
 	}
 
-	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -159,18 +158,17 @@ public class Manager {
 		}
 	}
 
-	public void VerifEtatCompte(boolean etatCompte) {
-		if(etatCompte) {
-			/*
-			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-			 * en fonction de son rôle/status
-			 
-			System.out.println("Bienvenue");
-		} else {
-			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
+	public void VerifEtatCompte(String mail) throws SQLException {
+		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			boolean accountStatus = rs.getBoolean("etatCompte");
+			System.out.println(accountStatus);
 		}
 	}
-*/
+	
 	public void SupprimerProfil(int id) throws SQLException {
 		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
