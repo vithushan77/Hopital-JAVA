@@ -143,18 +143,14 @@ public class Manager {
 	}
 	
 	public void VerifEtatCompte(String mail) throws SQLException{
-		boolean etatCompte = true;
 		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
-			if(etatCompte) {
-				System.out.println("Bienvenue");
-			} else {
-				System.out.println("Votre compte a été désactivé. Veuillez contacter l'administrateur");
-			}
-		}
+			boolean accountStatus = rs.getBoolean("etatCompte");
+			System.out.println(accountStatus);
+		} 
 	}
 	
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
