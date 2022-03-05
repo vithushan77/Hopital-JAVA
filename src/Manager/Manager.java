@@ -148,6 +148,8 @@ public class Manager {
 		pstm.setString(1, mail);
 		ResultSet rs = pstm.executeQuery();
 		while(rs.next()) {
+			/*Comme l'attribut etatCompte est de type booléen
+			 * On vérifie si le compte  de l'utilisateur est activé ou non*/
 			boolean accountStatus = rs.getBoolean("etatCompte");
 			System.out.println(accountStatus);
 		} 
