@@ -400,10 +400,10 @@ public class Manager {
 		}
 	}
 	
-	public void AjouterMedecins(int id, String nom, String prenom, String specialite) throws SQLException {
-		String sql = "SELECT * FROM medecins WHERE id = ? LIMIT 1";
+	public void AjouterMedecins(String nom, String prenom, String specialite) throws SQLException {
+		String sql = "SELECT * FROM medecins WHERE prenom = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setInt(1, id);
+		pstm.setString(1, prenom);
 		ResultSet rs = pstm.executeQuery();
 		if(rs.next()) {
 			System.out.println("Le médecin que vous voulez ajouter a déjà été enregistré");

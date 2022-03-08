@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Test;
@@ -20,8 +21,9 @@ class HopitalTest {
 	}
 
 	@Test
-	void testAjout() throws Exception {
-		
+	void testConnexionBDD() throws Exception {
+		manager.connexionbdd();
+		assertTrue("Test connexion bdd réussie");
 	}
 
 }
