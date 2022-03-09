@@ -56,7 +56,7 @@ public class connexion {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(550, 300, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setVisible(true);
@@ -98,6 +98,11 @@ public class connexion {
 				if(test.equals("administratif")) {
 					administratif adm = new administratif();
 					adm.run();
+					frame.dispose();
+				}
+				if(test.equals("infirmier")) {
+					infirmiere inf = new infirmiere();
+					inf.run();
 					frame.dispose();
 				}
 				else {

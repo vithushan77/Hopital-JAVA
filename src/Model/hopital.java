@@ -1,15 +1,16 @@
 package Model;
 
-public class Chambres {
+public class hopital {
+
 
 	private int id;
+	private String nomPatient;
 	private int numeroChambre;
-	private String choix;
 
-	public Chambres(int id, int numeroChambre, String choix) {
+	public hopital(int id, String nomPatient, int numeroChambre) {
 		this.id = id;
 		this.numeroChambre = numeroChambre;
-		this.choix= choix;
+		this.nomPatient= nomPatient;
 	}
 
 	public int getId() {
@@ -20,6 +21,14 @@ public class Chambres {
 		this.id = id;
 	}
 
+	public String getNomPatient() {
+		return nomPatient;
+	}
+
+	public void setNomPatient(String nomPatient) {
+		this.nomPatient = nomPatient;
+	}
+
 	public int getNumeroChambre() {
 		return numeroChambre;
 	}
@@ -28,16 +37,10 @@ public class Chambres {
 		this.numeroChambre = numeroChambre;
 	}
 
-	public String getChoix() {
-		return choix;
-	}
 
-	public void setChoix(String choix) {
-		this.choix = choix;
-	}
-	public String toString() {
-		return  this.id+ "N° " + numeroChambre + "  Contient " + choix + "";
-	}
 
 
 }
+
+
+

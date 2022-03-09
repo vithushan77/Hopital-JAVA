@@ -43,9 +43,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -147,6 +147,7 @@ public class Manager {
 		}
 	}
 
+	/*
 	public void VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
@@ -158,17 +159,18 @@ public class Manager {
 		}
 	}
 
-	public void VerifEtatCompte(String mail) throws SQLException {
-		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ?";
-		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, mail);
-		ResultSet rs = pstm.executeQuery();
-		while(rs.next()) {
-			boolean accountStatus = rs.getBoolean("etatCompte");
-			System.out.println(accountStatus);
+	public void VerifEtatCompte(boolean etatCompte) {
+		if(etatCompte) {
+			/*
+			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
+			 * en fonction de son rôle/status
+			 
+			System.out.println("Bienvenue");
+		} else {
+			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
-	
+*/
 	public void SupprimerProfil(int id) throws SQLException {
 		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
@@ -566,20 +568,20 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 			catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-			String sql= "SELECT nom, prenom, numeroChambre, choix FROM hospitalisation \n"
+			String sql= "SELECT * FROM hospitalisation \n"
 					+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
 					+ "INNER JOIN patient on hospitalisation.id_patient = patient.id";
 			ResultSet res;
 			try {
 				res = stm.executeQuery(sql);
 				while(res.next()) {
-
+					int id = res.getInt("id");
 					String Nom = res.getString("Nom");
 					String Prenom = res.getString("Prenom");
 					int numeroChambre = res.getInt("numeroChambre");
 					String choix = res.getString("choix");
 
-					Object[] data = {Nom, Prenom,numeroChambre,choix};
+					Object[] data = {id, Nom, Prenom,numeroChambre,choix};
 					Object hospitalisation;
 					hospitalisations.add(data);
 				}
@@ -657,9 +659,38 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 
 		return listecham;
 	}
-
-
-	
 	
 
-}
+	public void ajouthospit(int i, int j) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm1 = null;
+		try {
+			stm1 = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql1 = "SELECT * FROM hospitalisation WHERE id_patient = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql1);
+		pstm.setInt(1, i);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Le Patient séléctionner est deja assigner dans une chambre");
+		} else {
+
+		String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre) VALUES (null,"+i+ ", "+j +")";
+		System.out.println(sql);
+		try {
+			r1 = stm1.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//System.out.println("hello");
+			e.printStackTrace();
+		}
+		
+		}
+	}
+		
+	}

@@ -54,6 +54,9 @@ public class infirmiere {
 		JButton btnNewButton_1 = new JButton("chambre");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				chambrepati chmpat = new chambrepati();
+				chmpat.run();
+				frame.dispose();
 			}
 		});
 		btnNewButton_1.setBounds(218, 60, 199, 42);
