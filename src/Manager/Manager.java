@@ -692,5 +692,42 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 		
 		}
 	}
+	
+	public ArrayList<Object[]> doctor(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+
+		ArrayList<Object[]> doctors = new ArrayList<>();
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * FROM medecin";
+		ResultSet res;
+		try {
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				int id = res.getInt("id");
+				String nom = res.getString("nom");
+				String specialité = res.getString("specialité");
+				
+
+				Object[] data = {id, nom, specialité};
+				Object doctor;
+				doctors.add(data);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+	return doctors;
+
+	}
 		
 	}

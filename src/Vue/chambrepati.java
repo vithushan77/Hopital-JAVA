@@ -35,9 +35,8 @@ public class chambrepati {
 
 		//EventQueue.invokeLater(new Runnable() {
 
-
+	
 			public void run() {
-
 
 				try {
 					chambrepati window = new chambrepati();
@@ -46,6 +45,7 @@ public class chambrepati {
 					e.printStackTrace();
 				}
 			}
+			
 		//});
 //	}
 
