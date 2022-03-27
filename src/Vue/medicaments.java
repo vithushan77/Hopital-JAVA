@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 
 import Manager.Manager;
+import Model.Chambres;
+import Model.Medicaments;
+import Model.Patient;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -21,7 +24,8 @@ public class medicaments {
 	/**
 	 * Launch the application.
 	 */
-	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					medicaments window = new medicaments();
@@ -29,6 +33,8 @@ public class medicaments {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+		});
 	}
 
 	/**
@@ -46,37 +52,41 @@ public class medicaments {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		Manager man = new Manager();
-		ArrayList<String> liste = man.recupuser();
-		Object[] array = liste.toArray();
-		
-		JComboBox comboBox = new JComboBox(array);
-		comboBox.setBounds(153, 31, 216, 61);
+
+		Manager m = new Manager();
+
+		ArrayList<Medicaments>liste = m.recumpmed();
+
+		JComboBox<Medicaments> comboBox = new JComboBox(liste.toArray());
+		comboBox.setBounds(119, 108, 219, 53);
 		frame.getContentPane().add(comboBox);
-		
-		ArrayList<String> listemed = man.recupmed();
-		Object[] array1 = listemed.toArray();
-		JComboBox comboBox_1 = new JComboBox(array1);
-		comboBox_1.setBounds(153, 104, 216, 61);
+
+		ArrayList<Patient>liste1 = 	m.recupatients();
+
+		JComboBox<Patient> comboBox_1 = new JComboBox(liste1.toArray());
+		comboBox_1.setBounds(119, 43, 219, 36);
 		frame.getContentPane().add(comboBox_1);
-		
+
+
+
+
 		JButton btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 			}
 		});
 		btnNewButton.setBounds(294, 209, 117, 29);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JLabel lblNewLabel = new JLabel("Patient");
 		lblNewLabel.setBounds(29, 52, 61, 16);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Medicaments");
 		lblNewLabel_1.setBounds(29, 125, 61, 16);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnNewButton_1 = new JButton("Retour");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

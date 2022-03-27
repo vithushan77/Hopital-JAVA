@@ -23,6 +23,7 @@ import Model.Patient;
 import Model.Chambres;
 import Model.Medicaments;
 import Model.Utilisateur;
+import Vue.Medecins;
 import Model.Patient;
 
 public class Manager {
@@ -79,14 +80,14 @@ public class Manager {
 				System.out.println(desc);
 				System.out.println(ut.getMdp());
 			}
-				String re3 = "SELECT status FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
-				System.out.println(re3);
-					ResultSet resultatrecherche2 = stm.executeQuery(re3);
-					while(resultatrecherche2.next()){
-						// Aﬃchage des lignes qui comporte les caractères de "recherche"
-						desc2 = resultatrecherche2.getString("status");
-						System.out.println(desc2);
-						System.out.println(ut.getMdp());
+			String re3 = "SELECT status FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
+			System.out.println(re3);
+			ResultSet resultatrecherche2 = stm.executeQuery(re3);
+			while(resultatrecherche2.next()){
+				// Aﬃchage des lignes qui comporte les caractères de "recherche"
+				desc2 = resultatrecherche2.getString("status");
+				System.out.println(desc2);
+				System.out.println(ut.getMdp());
 			}
 			if(ut.getMdp().equals(desc)) {
 				co2 = desc2;
@@ -162,15 +163,15 @@ public class Manager {
 	public void VerifEtatCompte(boolean etatCompte) {
 		if(etatCompte) {
 			/*
-			 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-			 * en fonction de son rôle/status
-			 
+	 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
+	 * en fonction de son rôle/status
+
 			System.out.println("Bienvenue");
 		} else {
 			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
 		}
 	}
-*/
+	 */
 	public void SupprimerProfil(int id) throws SQLException {
 		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
@@ -196,7 +197,7 @@ public class Manager {
 			System.out.println("Profil mis à jour");
 		}
 	}
-	
+
 	public void ModifierMdp(String mdp, String mail) throws SQLException {
 		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
 		String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
@@ -406,7 +407,8 @@ public class Manager {
 
 	}
 
-	public ArrayList<String> recupmed(){
+
+	public ArrayList<Medicaments> recumpmed(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
 		try {
@@ -415,21 +417,24 @@ public class Manager {
 		catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		String sql= "SELECT id, nomMedicament From medicaments";
+		String sql= "SELECT * From medicaments";
 		System.out.println(sql);
-		ArrayList<String>listemed = new ArrayList<>();
+		ArrayList<Medicaments>listemedocs = new ArrayList<>();
 		try {
-			ResultSet resultatrecherchemed = stm.executeQuery(sql);
-			while(resultatrecherchemed.next()){
-				listemed.add(resultatrecherchemed.getString("nomMedicament"));
+			ResultSet resultatrecherchemedoc = stm.executeQuery(sql);
+			while(resultatrecherchemedoc.next()){
+				listemedocs.add(new Medicaments(
+						resultatrecherchemedoc.getInt("id"),
+						resultatrecherchemedoc.getString("nomMedicament"),
+						resultatrecherchemedoc.getInt("quantite"),
+						resultatrecherchemedoc.getString("toxicite")));
+				//listepati.add(resultatrecherchepati.getString("Nom"));
 
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-	System.out.println(listemed);
-	return listemed;
+		return listemedocs;
 	}
 
 	public ArrayList<String>recupcham(){
@@ -449,9 +454,9 @@ public class Manager {
 			while(resultatrecherche.next()) {
 				liste.add(resultatrecherche.getString("libelle"));
 			}
-			}catch (SQLException e) {
-				e.printStackTrace();
-			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return liste;
 
 	}
@@ -466,7 +471,7 @@ public class Manager {
 	}
 
 
-public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
+	public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -529,7 +534,7 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 			e.printStackTrace();
 		}
 
-	return listemed;
+		return listemed;
 	}
 
 	public ArrayList<String>heure(){
@@ -555,47 +560,47 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 		}
 
 		return listeheure;
+	}
+
+	public ArrayList<Object[]> hospitalisation(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+
+		ArrayList<Object[]> hospitalisations = new ArrayList<>();
+		try {
+			stm = co_bdd.createStatement();
 		}
-	
-		public ArrayList<Object[]> hospitalisation(){
-			Connection co_bdd = this.connexionbdd();
-			java.sql.Statement stm = null;
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * FROM hospitalisation \n"
+				+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
+				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id";
+		ResultSet res;
+		try {
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				int id = res.getInt("id");
+				String Nom = res.getString("Nom");
+				String Prenom = res.getString("Prenom");
+				int numeroChambre = res.getInt("numeroChambre");
+				String choix = res.getString("choix");
 
-			ArrayList<Object[]> hospitalisations = new ArrayList<>();
-			try {
-				stm = co_bdd.createStatement();
+				Object[] data = {id, Nom, Prenom,numeroChambre,choix};
+				Object hospitalisation;
+				hospitalisations.add(data);
 			}
-			catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			String sql= "SELECT * FROM hospitalisation \n"
-					+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
-					+ "INNER JOIN patient on hospitalisation.id_patient = patient.id";
-			ResultSet res;
-			try {
-				res = stm.executeQuery(sql);
-				while(res.next()) {
-					int id = res.getInt("id");
-					String Nom = res.getString("Nom");
-					String Prenom = res.getString("Prenom");
-					int numeroChambre = res.getInt("numeroChambre");
-					String choix = res.getString("choix");
 
-					Object[] data = {id, Nom, Prenom,numeroChambre,choix};
-					Object hospitalisation;
-					hospitalisations.add(data);
-				}
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
 
 		return hospitalisations;
 
-		}
+	}
 
 
 	public ArrayList<Patient> recupatients(){
@@ -659,7 +664,7 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 
 		return listecham;
 	}
-	
+
 
 	public void ajouthospit(int i, int j) throws SQLException {
 		// TODO Auto-generated method stub
@@ -679,20 +684,20 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 			System.out.println("Le Patient séléctionner est deja assigner dans une chambre");
 		} else {
 
-		String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre) VALUES (null,"+i+ ", "+j +")";
-		System.out.println(sql);
-		try {
-			r1 = stm1.executeUpdate(sql);
+			String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre) VALUES (null,"+i+ ", "+j +")";
+			System.out.println(sql);
+			try {
+				r1 = stm1.executeUpdate(sql);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			//System.out.println("hello");
-			e.printStackTrace();
-		}
-		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				//System.out.println("hello");
+				e.printStackTrace();
+			}
+
 		}
 	}
-	
+
 	public ArrayList<Object[]> doctor(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -712,7 +717,7 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 				int id = res.getInt("id");
 				String nom = res.getString("nom");
 				String specialité = res.getString("specialité");
-				
+
 
 				Object[] data = {id, nom, specialité};
 				Object doctor;
@@ -726,8 +731,8 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 
 
 
-	return doctors;
+		return doctors;
 
 	}
-		
-	}
+
+}
