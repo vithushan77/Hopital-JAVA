@@ -84,7 +84,7 @@ public class connexion {
 		JButton btnNewButton = new JButton("Valider");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Utilisateur ut = new Utilisateur(0, textField.getText(),password.getText(), null, null, null, test);
+				Utilisateur ut = new Utilisateur(0, textField.getText(),password.getText(), null, null, null);
 				ut.setMail(textField.getText());
 				ut.setMdp(password.getText());
 				Manager ma = new Manager();
@@ -100,6 +100,16 @@ public class connexion {
 					adm.run();
 					frame.dispose();
 				}
+				if(test.equals("administrateur")) {
+					administrateur admi = new administrateur();
+					admi.run();
+					frame.dispose();
+				}
+				/*if(test.equals("infirmiere")) {
+					infirmiere if = new infirmiere();
+					if.run();
+					frame.dispose();
+				}*/
 				else {
 					JLabel lblNewLabel_2 = new JLabel("Email inexistant ou mot de passe incorrect !");
 					lblNewLabel_2.setForeground(Color.RED);

@@ -22,6 +22,7 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import Model.Patient;
 import Model.Medicaments;
 import Model.Utilisateur;
+import Model.Administrateur;
 import Model.Patient;
 
 public class Manager {
@@ -494,11 +495,6 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 		return co2;
 	}
 
-}
-
-	return listecham;
-
-	}
 	public ArrayList<String>medecins(){
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm = null;
@@ -647,7 +643,196 @@ public String getMdpVerif(String mail, String nombre, String nouveauMdp) {
 
 	return listepati;
 	}
+	
+	
+	public ArrayList<Object[]> utilisateurs(){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+
+		ArrayList<Object[]> utilisateurs = new ArrayList<>();
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * FROM utilisateur";
+		ResultSet res;
+		try {
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+
+				String Nom = res.getString("Nom");
+				String Prenom = res.getString("Prenom");
+				String Mail = res.getString("mail");
+				int etatCompte = res.getInt("etatCompte");
+				String Status = res.getString("status");
+
+				Object[] data = {Nom, Prenom,Mail,Status};
+				Object utilisateur;
+				utilisateurs.add(data);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
 
-}
+	return utilisateurs;
+
+	}
+	
+	public void inscriptionadmin(Administrateur adm){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm1 = null;
+		try {
+			stm1 = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + adm.getNom() + "','"+adm.getPrenom() +"','"+adm.getMail() +"','"+ adm.getMdp() +"', 'administrateur','1')";
+		System.out.println(re3);
+
+		try {
+			r1 = stm1.executeUpdate(re3);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//System.out.println("hello");
+			e.printStackTrace();
+			}
+		}
+	
+	public void inscriptionutilisateur(Administrateur adm, Object data){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm1 = null;
+		try {
+			stm1 = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + adm.getNom() + "','"+adm.getPrenom() +"','"+adm.getMail() +"','"+ adm.getMdp() +"', '"+ data +"','1')";
+		System.out.println(re3);
+
+		try {
+			r1 = stm1.executeUpdate(re3);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//System.out.println("hello");
+			e.printStackTrace();
+			}
+		}
+	
+	
+	public  Utilisateur getUtilisateurInfo(Object data){
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		Utilisateur ut = null;
+		String aze = "aze";
+		try {
+			stm = co_bdd.createStatement();
+		}
+		catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		String sql= "SELECT * FROM utilisateur WHERE mail = '" + data + "'";
+		ResultSet res;
+		try {
+			res = stm.executeQuery(sql);
+			while(res.next()) {
+				int id = res.getInt("id");
+				String Nom = res.getString("Nom");
+				String Prenom = res.getString("Prenom");
+				String Mail = res.getString("mail");
+				String Mdp = res.getString("mdp");
+				int etatCompte = res.getInt("etatCompte");
+				String Status = res.getString("status");
+
+				ut = new Utilisateur(id, Nom, Prenom, Mdp, Mail, Status);
+				ut.setId(id);
+				ut.setNom(Nom);
+				ut.setPrenom(Prenom);
+				ut.setMdp(Mdp);
+				ut.setMail(Mail);
+				ut.setStatus(Status);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	return ut;
+
+	}
+	
+	public ArrayList<String> alluser() {
+		Connection co_bdd = this.connexionbdd();
+		java.sql.Statement stm = null;
+		try {
+			stm = co_bdd.createStatement();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String sql ="SELECT id, mail From utilisateur";
+		System.out.println(sql);
+		ArrayList<String> liste = new ArrayList<>();
+		try{
+			ResultSet resultatrecherche = stm.executeQuery(sql);
+			while(resultatrecherche.next()) {
+				liste.add(resultatrecherche.getString("mail"));
+			}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return liste;
+
+	}
+	
+	public void updateActiver(String mail) throws SQLException {
+		
+			String sql = "UPDATE utilisateur SET etatCompte = ? WHERE mail = ?";
+			Object pstm = this.connexionbdd().prepareStatement(sql);
+			((PreparedStatement) pstm).setInt(1, 1);
+			((PreparedStatement) pstm).setString(2, mail);
+			((PreparedStatement) pstm).execute();
+			System.out.println("ACTIVER");
+		}
+	
+	public void updateDesactiver(String mail) throws SQLException {
+		
+		String sql = "UPDATE utilisateur SET etatCompte = ? WHERE mail = ?";
+		Object pstm = this.connexionbdd().prepareStatement(sql);
+		((PreparedStatement) pstm).setInt(1, 0);
+		((PreparedStatement) pstm).setString(2, mail);
+		((PreparedStatement) pstm).execute();
+		System.out.println("DESACTIVER");
+	}
+	
+public void updateProfil(String mail, String motdepasse, String nom, String prenom, Object status) throws SQLException {
+		
+		String sql = "UPDATE utilisateur SET nom = ?, mail = ?, prenom = ?, mdp = ?, status = ? WHERE mail = ?";
+		System.out.println(sql);
+		System.out.println(mail);
+		System.out.println(prenom);
+		System.out.println(nom);
+		System.out.println(status);
+		System.out.println(motdepasse);
+		
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nom);
+		pstm.setString(2, mail);
+		pstm.setString(3, prenom);
+		pstm.setString(4, motdepasse);
+		pstm.setObject(5, status);
+		pstm.setString(6, mail);
+		pstm.execute();
+		System.out.println("MODIFIER");
+	}
+	}
