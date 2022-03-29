@@ -176,7 +176,7 @@ public class Manager {
 		}
 		return accountStatus;
 	}
-	 */
+	
 	public void SupprimerProfil(int id) throws SQLException {
 		/*La suppression du profil ne peut être effectuée si, et seulement si, un salarié licencié ou un patient en fait la demande*/
 		String sql = "DELETE FROM utilisateur WHERE id = ?";
@@ -234,15 +234,6 @@ public class Manager {
 				System.out.println(profilModifie.get(i));
 			}
 		}
-	}
-
-	public void SupprimerProfil(int id) throws SQLException {
-		/*Le profil ne peut être supprimé si, et seulement si, un salarié licencié ou un patient en fait la demande*/
-		String sql = "DELETE FROM utilisateur WHERE id = ?";
-		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setInt(1, id);
-		pstm.execute();
-		System.out.println("Compte supprimé");
 	}
 
 	public void DesactiverCompte(String mail) throws SQLException {
@@ -478,7 +469,6 @@ public class Manager {
 		return listeMedecins;
 	}
 
-}
 
 	public ArrayList<String> recupuser() {
 		Connection co_bdd = this.connexionbdd();

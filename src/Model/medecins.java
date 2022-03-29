@@ -1,45 +1,49 @@
 package Model;
 
-public class medecins {
-	
+public class Medecins {
 	private int id;
 	private String nom;
-	private String specialité;
+	private String prenom;
+	private String specialite;
 	
-	
-	
-	public medecins(int id, String nom, String specialité) {
-		super();
+	public Medecins(int id, String nom, String prenom, String specialite) {
 		this.id = id;
 		this.nom = nom;
-		this.specialité = specialité;
+		this.prenom = prenom;
+		this.specialite = specialite;
 	}
-	
-	
+
 	public int getId() {
-		return id;
+		return this.id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getNom() {
-		return nom;
+		return this.nom;
 	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getSpecialité() {
-		return specialité;
-	}
-	public void setSpecialité(String specialité) {
-		this.specialité = specialité;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return this.id +" " + nom + " " + specialité + "";
+
+	public String getPrenom() {
+		return this.prenom;
 	}
 
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getSpecialite() {
+		return this.specialite;
+	}
+
+	public void setSpecialite(String specialite) {
+		this.specialite = specialite;
+	}
+	
 	
 }
