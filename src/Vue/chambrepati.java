@@ -71,7 +71,7 @@ public class chambrepati {
 		DefaultTableModel tblModel = new DefaultTableModel(
 
 				new String[] {
-						"id","Nom", "Prenom", "numéro de chambre", "Choix"
+						"id","Nom", "Prenom", "numéro de chambre", "Choix", "Medicaments"
 				},0
 				);
 		table = new JTable(tblModel);
@@ -79,6 +79,7 @@ public class chambrepati {
 		table.getColumnModel().getColumn(1).setPreferredWidth(135);
 		table.getColumnModel().getColumn(2).setPreferredWidth(164);
 		table.getColumnModel().getColumn(3).setPreferredWidth(300);
+		table.getColumnModel().getColumn(4).setPreferredWidth(201);
 		table.getColumnModel().getColumn(4).setPreferredWidth(201);
         table.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent e) { 

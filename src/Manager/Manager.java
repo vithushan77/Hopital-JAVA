@@ -575,7 +575,9 @@ public class Manager {
 		}
 		String sql= "SELECT * FROM hospitalisation \n"
 				+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
-				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id";
+				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id INNER JOIN medicaments on hospitalisation.id_medicament = medicaments.id";
+		
+		
 		ResultSet res;
 		try {
 			res = stm.executeQuery(sql);
@@ -585,8 +587,10 @@ public class Manager {
 				String Prenom = res.getString("Prenom");
 				int numeroChambre = res.getInt("numeroChambre");
 				String choix = res.getString("choix");
+				String nomMedicament = res.getString("nomMedicament");
 
-				Object[] data = {id, Nom, Prenom,numeroChambre,choix};
+
+				Object[] data = {id, Nom, Prenom,numeroChambre,choix,nomMedicament};
 				Object hospitalisation;
 				hospitalisations.add(data);
 			}
