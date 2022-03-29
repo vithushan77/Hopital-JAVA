@@ -6,12 +6,15 @@ package Manager;
 import java.awt.Container;
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -29,7 +32,6 @@ import Model.Patient;
 
 public class Manager {
 	private int r1;
-	private ResultSet Nomfilm;
 	private String desc;
 	private String desc2;
 	private ResultSet r2;
@@ -41,7 +43,7 @@ public class Manager {
 	private String co2;
 	private static final String DELIMITER = ",";
 	private static final String SEPARATOR = "\n";
-	private static final String HEADER = "Nom, Quantité, Toxicité";
+	private static final String HEADER = "Id, Nom, Quantite, Toxicite";
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
@@ -149,28 +151,30 @@ public class Manager {
 		}
 	}
 
-	/*
-	public void VerifyOAuth(String mail, String mdp) throws SQLException {
+	public boolean VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		ResultSet rs = pstm.executeQuery();
+		boolean match = false;
 	    while(rs.next()) {
-	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
-	    	System.out.println(match);
+	    	match = BCrypt.checkpw(mdp, rs.getString("mdp"));
 		}
+	    return match;
 	}
 
-	public void VerifEtatCompte(boolean etatCompte) {
-		if(etatCompte) {
-			/*
-	 * Si l'ï¿½tat du compte vaut 1 alors on redirige l'utilisateur vers la page d'accueil
-	 * en fonction de son rôle/status
-
-			System.out.println("Bienvenue");
-		} else {
-			System.out.println("Votre compte est dï¿½sactivï¿½. Veuillez contacter l'administrateur");
+	public boolean VerifEtatCompte(String mail) throws SQLException{
+		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, mail);
+		ResultSet rs = pstm.executeQuery();
+		boolean accountStatus = false;
+		while(rs.next()) {
+			/*Comme l'attribut etatCompte est de type booléen
+			 * On vérifie si le compte  de l'utilisateur est activé ou non*/
+			accountStatus = rs.getBoolean("etatCompte");
 		}
+		return accountStatus;
 	}
 	 */
 	public void SupprimerProfil(int id) throws SQLException {
@@ -200,39 +204,72 @@ public class Manager {
 	}
 
 	public void ModifierMdp(String mdp, String mail) throws SQLException {
-		String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
-		String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
+		try {
+			String hashedPwd = BCrypt.hashpw(mdp, BCrypt.gensalt(10));
+			String sql = "UPDATE utilisateur SET mdp = ? WHERE mail = ? LIMIT 1";
+			PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, hashedPwd);
+			pstm.setString(2, mail);
+			int rowUpdated = pstm.executeUpdate();
+			System.out.println("Mot de passe modifié avec succès");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void getModification(int id) throws SQLException {
+		String sql = "SELECT nom, prenom, mdp, mail, role FROM utilisateur WHERE id = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
-		pstm.setString(1, hashedPwd);
-		pstm.setString(2, mail);
-		int rowUpdated = pstm.executeUpdate();
-		System.out.println("Mot de passe modifié");
+		pstm.setInt(1, id);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			ArrayList<Object> profilModifie = new ArrayList<Object>();
+			profilModifie.add(rs.getString("nom"));
+			profilModifie.add(rs.getString("prenom"));
+			profilModifie.add(rs.getString("mail"));
+			profilModifie.add(rs.getString("mdp"));
+			profilModifie.add(rs.getString("role"));
+
+			for(int i = 0; i < profilModifie.size(); i++) {
+				System.out.println(profilModifie.get(i));
+			}
+		}
+	}
+
+	public void SupprimerProfil(int id) throws SQLException {
+		/*Le profil ne peut être supprimé si, et seulement si, un salarié licencié ou un patient en fait la demande*/
+		String sql = "DELETE FROM utilisateur WHERE id = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, id);
+		pstm.execute();
+		System.out.println("Compte supprimé");
 	}
 
 	public void DesactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 0 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-
 		int rowUpdated = pstm.executeUpdate();
-		if(rowUpdated > 0) {
-			System.out.println("Compte désactivé");
-		} else {
-			System.out.println("Erreur");
-		}
+		System.out.println("Compte désactivé");
 	}
 
 	public void ReactiverCompte(String mail) throws SQLException {
 		String sql = "UPDATE utilisateur SET etatCompte = 1 WHERE mail = ?";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
-
 		int rowUpdated = pstm.executeUpdate();
-		if(rowUpdated > 0) {
-			System.out.println("Le compte a été réactivé");
-		} else {
-			System.out.println("Une erreur est survenue lors de la requête de réactivation");
-		}
+		System.out.println("Le compte a été réactivé");
+	}
+
+	public void CommandeStock(int idGestionnaire, int id_medicament, int nombreStock, String libelle) throws SQLException {
+		String sql = "INSERT INTO commande_stock(idGestionnaire, id_medicament, nombreStock, dateCommande, libelle) VALUES(?,?,?,CURDATE(),?)";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, idGestionnaire);
+		pstm.setInt(2, id_medicament);
+		pstm.setInt(3,  nombreStock);
+		pstm.setString(4, libelle);
+		pstm.execute();
+		System.out.println("Commande enregistrée");
 	}
 
 	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
@@ -242,11 +279,12 @@ public class Manager {
 		ArrayList<ArrayList> laListeMedic = new ArrayList<ArrayList>();
 		while(rs.next()) {
 			ArrayList<Object> listeMedicaments = new ArrayList<Object>();
+			listeMedicaments.add(rs.getInt("id"));
 			listeMedicaments.add(rs.getString("nomMedicament"));
 			listeMedicaments.add(rs.getInt("quantite"));
 			listeMedicaments.add(rs.getString("toxicite"));
 			laListeMedic.add(listeMedicaments);
-		}
+			}
 		return laListeMedic;
 	}
 
@@ -265,6 +303,25 @@ public class Manager {
 			pstm.setString(3, toxicite);
 			pstm.execute();
 			System.out.println("Ajout du médicament effectué avec succès");
+		}
+	}
+
+	public void CommandeMedicaments(String nomMedicament, int quantite) throws SQLException {
+		/*
+		 * Gestion de commande de stock de médicaments pour les infirmières
+		 */
+		String sql = "SELECT * FROM medicaments WHERE nomMedicament = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, nomMedicament);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			int total = rs.getInt("quantite");
+			sql = "UPDATE medicaments SET quantite = ? WHERE nomMedicament = ?";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setInt(1, total - quantite);
+			pstm.setString(2, nomMedicament);
+			pstm.execute();
+			System.out.println("Commande effectuée");
 		}
 	}
 
@@ -304,11 +361,13 @@ public class Manager {
 		}
 		FileWriter file = null;
 		try {
-			file = new FileWriter("Liste des médicaments.csv");
+			file = new FileWriter("Liste des médicaments.txt");
 			file.append(HEADER);
 			file.append(SEPARATOR);
 
 			for(Medicaments m : listeMedicaments) {
+				file.append(String.valueOf((m.getId())));
+				file.append(DELIMITER);
 				file.append(m.getNomMedicament());
 				file.append(DELIMITER);
 				file.append(String.valueOf(m.getQuantite()));
@@ -320,6 +379,7 @@ public class Manager {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return listeMedicaments;
 	}
 	 */
 
@@ -383,6 +443,42 @@ public class Manager {
 			System.out.println("Les informations du patient ont bien été enregistrées");
 		}
 	}
+
+	public void AjouterMedecins(String nom, String prenom, String specialite) throws SQLException {
+		String sql = "SELECT * FROM medecins WHERE prenom = ? LIMIT 1";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, prenom);
+		ResultSet rs = pstm.executeQuery();
+		if(rs.next()) {
+			System.out.println("Le médecin que vous voulez ajouter a déjà été enregistré");
+		} else {
+			sql = "INSERT INTO medecins(nom, prenom, specialite) VALUES(?,?,?)";
+			pstm = this.connexionbdd().prepareStatement(sql);
+			pstm.setString(1, nom);
+			pstm.setString(2, prenom);
+			pstm.setString(3, specialite);
+			int addedRow = pstm.executeUpdate();
+			System.out.println("Les informations ont bien été enregistrées");
+		}
+	}
+
+	public ArrayList<ArrayList>LesMedecins() throws SQLException {
+		ArrayList<ArrayList> listeMedecins = new ArrayList<ArrayList>();
+		String sql = "SELECT * FROM medecins";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		while(rs.next()) {
+			ArrayList<Object> leMedecin = new ArrayList<Object>();
+			leMedecin.add(rs.getInt("id"));
+			leMedecin.add(rs.getString("nom"));
+			leMedecin.add(rs.getString("prenom"));
+			leMedecin.add(rs.getString("specialite"));
+			listeMedecins.add(leMedecin);
+		}
+		return listeMedecins;
+	}
+
+}
 
 	public ArrayList<String> recupuser() {
 		Connection co_bdd = this.connexionbdd();
