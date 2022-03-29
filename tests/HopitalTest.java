@@ -41,8 +41,8 @@ public class HopitalTest {
 	
 	@Test
 	@Order(3)
-	public void testAjoutUtilisateurs() throws Exception {
-		manager.AjouterUtilisateurs("DAN", "Pierre", "d.pierre", "TheRock", "admin", true);
+	public void testModifierInfoCompteExistant() throws Exception {
+		manager.ModifierProfil(21, "TRAN", "Pierre", "d.pierre@outlook.fr");
 	}
 
 }
