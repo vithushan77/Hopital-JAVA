@@ -11,7 +11,7 @@ public class SendEmail
 		String emailHost = "smtp.gmail.com";
 		
 		String fromUser = "vithuerdalminh@gmail.com";
-		String fromUserEmailPassword = "Loldelol2";
+		String fromUserEmailPassword = "Loldelol1234";
 		
 		System.out.println("\n\nSender of Email is "+ fromUser);
 		

@@ -9,14 +9,13 @@ public class Utilisateur {
 	private String status;
 	private String etatCompte;
 
-	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status, String test) {
+	public Utilisateur(int id, String nom, String prenom, String mail, String mdp, String status) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
 		this.mdp = mdp;
 		this.status = status;
-		this.etatCompte = test;
 	}
 
 
