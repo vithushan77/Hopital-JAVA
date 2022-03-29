@@ -5,10 +5,12 @@ package Manager;
 
 import java.io.FileWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,7 +25,6 @@ import Model.Patient;
 
 public class Manager {
 	private int r1;
-	private ResultSet Nomfilm;
 	private String desc;
 	private ResultSet r2;
 	private ResultSet r3;
@@ -131,28 +132,30 @@ public class Manager {
 		}
 	}
 	
-	public void VerifyOAuth(String mail, String mdp) throws SQLException {
+	public boolean VerifyOAuth(String mail, String mdp) throws SQLException {
 		String sql = "SELECT mdp FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		ResultSet rs = pstm.executeQuery();
+		boolean match = false;
 	    while(rs.next()) {
-	    	boolean match = BCrypt.checkpw(mdp, rs.getString("mdp"));
-	    	System.out.println(match);
+	    	match = BCrypt.checkpw(mdp, rs.getString("mdp"));
 		}
+	    return match;
 	}
 	
-	public void VerifEtatCompte(String mail) throws SQLException{
-		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ?";
+	public boolean VerifEtatCompte(String mail) throws SQLException{
+		String sql = "SELECT etatCompte FROM utilisateur WHERE mail = ? LIMIT 1";
 		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
 		pstm.setString(1, mail);
 		ResultSet rs = pstm.executeQuery();
+		boolean accountStatus = false;
 		while(rs.next()) {
 			/*Comme l'attribut etatCompte est de type booléen
 			 * On vérifie si le compte  de l'utilisateur est activé ou non*/
-			boolean accountStatus = rs.getBoolean("etatCompte");
-			System.out.println(accountStatus);
-		} 
+			accountStatus = rs.getBoolean("etatCompte");
+		}
+		return accountStatus;
 	}
 	
 	public void ModifierProfil(int id, String nom, String prenom, String mail) throws SQLException {
@@ -228,6 +231,17 @@ public class Manager {
 		pstm.setString(1, mail);
 		int rowUpdated = pstm.executeUpdate();
 		System.out.println("Le compte a été réactivé");
+	}
+	
+	public void CommandeStock(int idGestionnaire, int id_medicament, int nombreStock, String libelle) throws SQLException {
+		String sql = "INSERT INTO commande_stock(idGestionnaire, id_medicament, nombreStock, dateCommande, libelle) VALUES(?,?,?,CURDATE(),?)";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setInt(1, idGestionnaire);
+		pstm.setInt(2, id_medicament);
+		pstm.setInt(3,  nombreStock);
+		pstm.setString(4, libelle);
+		pstm.execute();
+		System.out.println("Commande enregistrée");
 	}
 	
 	public ArrayList<ArrayList> LesMedicaments() throws SQLException {
