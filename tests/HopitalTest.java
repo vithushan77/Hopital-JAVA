@@ -19,7 +19,7 @@ import Model.Utilisateur;
 public class HopitalTest {
 	
 	private static Manager manager = new Manager();
-
+	
 	@BeforeAll
 	static void init() {
 		//manager = new Manager();
@@ -34,15 +34,58 @@ public class HopitalTest {
 	
 	@Test
 	@Order(2)
-	public void testVerificationEtatDuCompte() throws Exception {
-		boolean reponse = manager.VerifEtatCompte("m.tang@outlook.fr");
-		Assertions.assertTrue(reponse);
+	public void testConnexionAvecCompteInexistant() throws Exception {
+		boolean reponse = manager.VerifyOAuth("h-linda@outlook.fr", "Dubai");
+		Assertions.assertFalse(reponse);
 	}
 	
 	@Test
 	@Order(3)
-	public void testModifierInfoCompteExistant() throws Exception {
-		manager.ModifierProfil(21, "TRAN", "Pierre", "d.pierre@outlook.fr");
+	public void testConnexionAvecErreurDeSaisie() throws Exception {
+		boolean reponse = manager.VerifyOAuth("m.tan@outloo.fr", "TheOriGinalSlenderman");
+		Assertions.assertFalse(reponse);
+	}
+	
+	@Test
+	@Order(4)
+	public void testConnexionAvecChampsVides() throws Exception {
+		String mail = null;
+		String mdp = null;
+		Assertions.assertNull(mail);
+		Assertions.assertNull(mdp);
+		boolean reponse = manager.VerifyOAuth(mail, mdp);
+		Assertions.assertNotEquals(reponse, "Identifiants vides");
+	}
+	/*
+	@Test
+	@Order(5)
+	public void testConnexionAvecSeulementUnIdentifiantValide() throws Exception {
+		String mail = "m.tang@outlook.fr";
+		String mdp = null;
+		Assertions.assertEquals(mail, "m.tang@outlook.fr");
+		Assertions.assertNotEquals(mdp, "Mot de passe vide");
+		boolean reponse = manager.VerifyOAuth(mail, mdp);
+		Assertions.assertFalse(reponse);
+	}
+	
+	@Test
+	@Order(6)
+	public void testConnexionAvecSeulementUnMotDePasseValide() throws Exception {
+		String mail = null;
+		String mdp = "TheOriginalSlenderman";
+		Assertions.assertNull(mail);
+	}
+	*/
+	@Test
+	@Order(7)
+	public void testVerificationEtatDuCompte() throws Exception {
+		boolean reponse = manager.VerifEtatCompte("m.tang@outlook.fr");
+		Assertions.assertTrue(reponse);
 	}
 
+	@Test
+	@Order(8)
+	public void testModifierInfoCompteExistant() throws Exception {
+		manager.ModifierProfil(21, "DELACROIX", "Pierre", "d.pierre@outlook.fr");
+	}
 }
