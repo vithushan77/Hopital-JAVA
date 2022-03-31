@@ -56,14 +56,14 @@ public class HopitalTest {
 		boolean reponse = manager.VerifyOAuth(mail, mdp);
 		Assertions.assertNotEquals(reponse, "Identifiants vides");
 	}
-	/*
+
 	@Test
 	@Order(5)
 	public void testConnexionAvecSeulementUnIdentifiantValide() throws Exception {
 		String mail = "m.tang@outlook.fr";
-		String mdp = null;
-		Assertions.assertEquals(mail, "m.tang@outlook.fr");
-		Assertions.assertNotEquals(mdp, "Mot de passe vide");
+		String mdp = "EqMz[Oj9-P]LWn";
+		Assertions.assertNotNull(mail, "m.tang@outlook.fr");
+		Assertions.assertNotEquals(mdp, "TheOriginalSlenderman");
 		boolean reponse = manager.VerifyOAuth(mail, mdp);
 		Assertions.assertFalse(reponse);
 	}
@@ -74,18 +74,22 @@ public class HopitalTest {
 		String mail = null;
 		String mdp = "TheOriginalSlenderman";
 		Assertions.assertNull(mail);
+		Assertions.assertNotNull(mdp);
+		boolean reponse = manager.VerifyOAuth(mail, mdp);
+		Assertions.assertFalse(reponse);
 	}
-	*/
+	
 	@Test
 	@Order(7)
-	public void testVerificationEtatDuCompte() throws Exception {
+	public void testVerificationEtatCompteSiActive() throws Exception {
 		boolean reponse = manager.VerifEtatCompte("m.tang@outlook.fr");
 		Assertions.assertTrue(reponse);
 	}
 
 	@Test
 	@Order(8)
-	public void testModifierInfoCompteExistant() throws Exception {
-		manager.ModifierProfil(21, "DELACROIX", "Pierre", "d.pierre@outlook.fr");
+	public void testVerificationEtatCompteSiDesactive() throws Exception {
+		boolean reponse = manager.VerifEtatCompte("sipraseuth-noah@outlook.fr");
+		Assertions.assertFalse(reponse);
 	}
 }
