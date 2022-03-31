@@ -92,4 +92,13 @@ public class HopitalTest {
 		boolean reponse = manager.VerifEtatCompte("sipraseuth-noah@outlook.fr");
 		Assertions.assertFalse(reponse);
 	}
+	
+	@Test
+	@Order(9)
+	public void testVerificationEtatCompteSiChampsVide() throws Exception {
+		String mail = null;
+		boolean reponse = manager.VerifEtatCompte(mail);
+		Assertions.assertNotEquals(mail, "m.tang@outlook.fr", "Champs vide");
+	}
+	
 }
