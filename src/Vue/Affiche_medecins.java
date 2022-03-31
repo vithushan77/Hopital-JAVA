@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Manager.Manager;
 
-public class Medecins {
+public class Affiche_medecins {
 
 	private JFrame frame;
 	private JTable table;
@@ -25,7 +25,7 @@ public class Medecins {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Medecins window = new Medecins();
+					Affiche_medecins window = new Affiche_medecins();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class Medecins {
 	/**
 	 * Create the application.
 	 */
-	public Medecins() {
+	public Affiche_medecins() {
 		initialize();
 	}
 

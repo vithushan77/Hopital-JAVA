@@ -1,12 +1,12 @@
 package Model;
 
-public class Medecins {
+public class medecins {
 	private int id;
 	private String nom;
 	private String prenom;
 	private String specialite;
 	
-	public Medecins(int id, String nom, String prenom, String specialite) {
+	public medecins(int id, String nom, String prenom, String specialite) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;

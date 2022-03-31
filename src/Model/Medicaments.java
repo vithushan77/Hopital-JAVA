@@ -30,9 +30,6 @@ public class Medicaments extends Object{
 	
 	
 	
-	@Override
-	public String toString() {
-		return this.id +" " + nomMedicament + " ";
-	}
+	
 
 }

@@ -27,7 +27,7 @@ import Model.Chambres;
 import Model.Medicaments;
 import Model.Utilisateur;
 import Model.Administrateur;
-import Vue.Medecins;
+import Vue.Affiche_medecins;
 import Model.Patient;
 
 public class Manager {
@@ -980,4 +980,41 @@ public void updateProfil(String mail, String motdepasse, String nom, String pren
 		pstm.execute();
 		System.out.println("MODIFIER");
 	}
+
+public ArrayList<Object[]> doctor(){
+	Connection co_bdd = this.connexionbdd();
+	java.sql.Statement stm = null;
+
+	ArrayList<Object[]> doctors = new ArrayList<>();
+	try {
+		stm = co_bdd.createStatement();
+	}
+	catch (SQLException e1) {
+		e1.printStackTrace();
+	}
+	String sql= "SELECT * FROM medecin";
+	ResultSet res;
+	try {
+		res = stm.executeQuery(sql);
+		while(res.next()) {
+			int id = res.getInt("id");
+			String nom = res.getString("nom");
+			String specialité = res.getString("specialité");
+
+
+			Object[] data = {id, nom, specialité};
+			Object doctor;
+			doctors.add(data);
+		}
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+
+
+	return doctors;
+
+}
 	}
