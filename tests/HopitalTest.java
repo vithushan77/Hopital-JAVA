@@ -19,6 +19,8 @@ import Model.Utilisateur;
 public class HopitalTest {
 	
 	private static Manager manager = new Manager();
+	private static String mail = "m.tang@outlook.fr";
+	private static String mdp = "TheOriginalSlenderman";
 	
 	@BeforeAll
 	static void init() {
@@ -28,13 +30,17 @@ public class HopitalTest {
 	@Test
 	@Order(1)
 	public void testConnexionAvecCompteExistant() throws Exception {
-		boolean reponse = manager.VerifyOAuth("m.tang@outlook.fr", "TheOriginalSlenderman");
+		Assertions.assertNotNull(mail);
+		Assertions.assertNotNull(mdp);
+		boolean reponse = manager.VerifyOAuth(mail, mdp);
 		Assertions.assertTrue(reponse);
 	}
 	
 	@Test
 	@Order(2)
 	public void testConnexionAvecCompteInexistant() throws Exception {
+		Assertions.assertNotEquals(mail, "h-linda@outlook.fr");
+		Assertions.assertNotEquals(mdp, "Dubai");
 		boolean reponse = manager.VerifyOAuth("h-linda@outlook.fr", "Dubai");
 		Assertions.assertFalse(reponse);
 	}
@@ -42,6 +48,8 @@ public class HopitalTest {
 	@Test
 	@Order(3)
 	public void testConnexionAvecErreurDeSaisie() throws Exception {
+		Assertions.assertNotEquals(mail, "m.tan@outloo.fr");
+		Assertions.assertNotEquals(mdp, "TheOriGinalSlenderman");
 		boolean reponse = manager.VerifyOAuth("m.tan@outloo.fr", "TheOriGinalSlenderman");
 		Assertions.assertFalse(reponse);
 	}
@@ -56,7 +64,7 @@ public class HopitalTest {
 		boolean reponse = manager.VerifyOAuth(mail, mdp);
 		Assertions.assertNotEquals(reponse, "Identifiants vides");
 	}
-
+	
 	@Test
 	@Order(5)
 	public void testConnexionAvecSeulementUnIdentifiantValide() throws Exception {
