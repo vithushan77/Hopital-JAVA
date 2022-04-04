@@ -705,6 +705,7 @@ public class Manager {
 		}
 		String sql= "SELECT * From patient";
 		System.out.println(sql);
+		
 		ArrayList<Patient>listepati = new ArrayList<>();
 		try {
 			ResultSet resultatrecherchepati = stm.executeQuery(sql);
@@ -757,7 +758,7 @@ public class Manager {
 	}
 
 
-	public void ajouthospit(int i, int j) throws SQLException {
+	public void ajouthospit(int i, int j, int l) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection co_bdd = this.connexionbdd();
 		java.sql.Statement stm1 = null;
@@ -775,7 +776,7 @@ public class Manager {
 			System.out.println("Le Patient séléctionner est deja assigner dans une chambre");
 		} else {
 
-			String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre) VALUES (null,"+i+ ", "+j +")";
+			String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre, id_medicament) VALUES (null,"+i+ ", "+j +","+l+")";
 			System.out.println(sql);
 			try {
 				r1 = stm1.executeUpdate(sql);

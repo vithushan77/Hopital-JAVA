@@ -1,8 +1,6 @@
 package Vue;
 
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -16,7 +14,6 @@ import Model.Utilisateur;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPasswordField;
-import javax.swing.UIManager;
 
 public class ajoututilisateur {
 
@@ -99,7 +96,7 @@ public class ajoututilisateur {
 		JButton btnNewButton_3 = new JButton("Ajouter");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Utilisateur ajut = new Utilisateur(0, textField_nom.getText(),textField_prenom.getText(),textField_mail.getText(),passwordField.getText(), null, false);
+				Utilisateur ajut = new Utilisateur(0, textField_nom.getText(),textField_prenom.getText(),textField_mail.getText(),passwordField.getText(), null);
 				ajut.setNom(textField_nom.getText());
 				ajut.setPrenom(textField_prenom.getText());
 				ajut.setMail(textField_mail.getText());

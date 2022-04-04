@@ -84,6 +84,9 @@ public class admin {
 		JButton btnNewButton_3 = new JButton("Voir des medecins");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Affiche_medecins afm = new Affiche_medecins();
+				afm.run();
+				frame.dispose();
 			}
 		});
 		btnNewButton_3.setBounds(180, 200, 205, 40);

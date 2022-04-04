@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Manager.Manager;
 import Model.Chambres;
+import Model.Medicaments;
 import Model.Patient;
 
 import javax.swing.JComboBox;
@@ -31,8 +32,6 @@ public class chambrepati {
 	 * Launch the application.
 	 */
 	//public static void main(String[] args) {
-
-
 		//EventQueue.invokeLater(new Runnable() {
 
 	
@@ -44,10 +43,10 @@ public class chambrepati {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+		//	}
 			
 		//});
-//	}
+	}
 
 	/**
 	 * Create the application.
@@ -81,6 +80,7 @@ public class chambrepati {
 		table.getColumnModel().getColumn(3).setPreferredWidth(300);
 		table.getColumnModel().getColumn(4).setPreferredWidth(201);
 		table.getColumnModel().getColumn(4).setPreferredWidth(201);
+
         table.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent e) { 
 
@@ -112,8 +112,14 @@ public class chambrepati {
 		ArrayList<Chambres>liste1 = m.recuchambres();
 
 		JComboBox<Chambres> comboBox_1 = new JComboBox(liste1.toArray());
-		comboBox_1.setBounds(17, 238, 171, 36);
+		comboBox_1.setBounds(17, 183, 171, 36);
 		frame.getContentPane().add(comboBox_1);
+		
+		ArrayList<Medicaments>liste2 = m.recumpmed();
+
+		JComboBox<Medicaments> comboBox_2 = new JComboBox(liste2.toArray());
+		comboBox_2.setBounds(23, 273, 159, 27);
+		frame.getContentPane().add(comboBox_2);
 
 		JLabel lblNewLabel = new JLabel("Nom");
 		System.out.println(liste.get(0));
@@ -121,7 +127,7 @@ public class chambrepati {
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Numéo de chambre");
-		lblNewLabel_1.setBounds(31, 212, 155, 24);
+		lblNewLabel_1.setBounds(27, 156, 155, 24);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("Ajouter");
@@ -129,11 +135,13 @@ public class chambrepati {
 			public void actionPerformed(ActionEvent e) {
 				Patient selectValue = (Patient) comboBox.getSelectedItem();
 				Chambres selectValue1 = (Chambres) comboBox_1.getSelectedItem();
+				Medicaments selectValue2 = (Medicaments) comboBox_1.getSelectedItem();
+
 				selectValue.getId();
 				
 				Manager man = new Manager();
 				try {
-					man.ajouthospit(selectValue.getId(),selectValue1.getId());
+					man.ajouthospit(selectValue.getId(),selectValue1.getId(),selectValue2.getId());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -158,6 +166,12 @@ public class chambrepati {
 		});
 		btnNewButton_1.setBounds(6, 17, 113, 23);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Medicament");
+		lblNewLabel_2.setBounds(31, 245, 113, 16);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		
 		
 	}
 }

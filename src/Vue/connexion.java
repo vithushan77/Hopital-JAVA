@@ -105,11 +105,11 @@ public class connexion {
 					admi.run();
 					frame.dispose();
 				}
-				/*if(test.equals("infirmiere")) {
-					infirmiere if = new infirmiere();
-					if.run();
+				if(test.equals("infirmier")) {
+					infirmiere inf = new infirmiere();
+					inf.run();
 					frame.dispose();
-				}*/
+				}
 				else {
 					JLabel lblNewLabel_2 = new JLabel("Email inexistant ou mot de passe incorrect !");
 					lblNewLabel_2.setForeground(Color.RED);

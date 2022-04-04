@@ -5,9 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JSpinner;
 
 import Manager.Manager;
+import Model.Chambres;
+import Model.Medicaments;
+import Model.Patient;
 
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -15,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -27,6 +33,8 @@ public class hospitalisation {
 	/**
 	 * Launch the application.
 	 */
+	//public static void main(String[] args) {
+		//EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					hospitalisation window = new hospitalisation();
@@ -34,7 +42,11 @@ public class hospitalisation {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+		//	}
+	
+	//});
+	}
+	
 	
 
 	/**
@@ -50,11 +62,12 @@ public class hospitalisation {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(500, 500, 600, 450);
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		Manager man = new Manager();
-		ArrayList<String> liste = man.recupuser();
+		ArrayList<Patient>liste = 	man.recupatients();
 		Object[] array = liste.toArray();
 				
 		JComboBox comboBox = new JComboBox(array);
@@ -62,14 +75,14 @@ public class hospitalisation {
 		frame.getContentPane().add(comboBox);
 		
 		
-		ArrayList<String> listemed = man.recupmed();
+		ArrayList<Medicaments>listemed = man.recumpmed();
 		Object[] array1 = listemed.toArray();
 		JComboBox comboBox_1 = new JComboBox(array1);
 		
 		comboBox_1.setBounds(229, 88, 226, 27);
 		frame.getContentPane().add(comboBox_1);
 		
-		ArrayList<String> listecham = man.recupcham();
+		ArrayList<Chambres>listecham = man.recuchambres();
 		Object[]array2 = listecham.toArray();
 		JComboBox comboBox_1_1 = new JComboBox(array2);
 		
@@ -88,6 +101,23 @@ public class hospitalisation {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Valider");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Patient selectValue = (Patient) comboBox.getSelectedItem();
+				Chambres selectValue1 = (Chambres) comboBox_1_1.getSelectedItem();
+				Medicaments selectValue2 = (Medicaments) comboBox_1.getSelectedItem();
+				selectValue.getId();
+				
+				Manager man = new Manager();
+				try {
+					man.ajouthospit(selectValue.getId(),selectValue1.getId(),selectValue2.getId());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
 		btnNewButton_1.setBounds(454, 250, 117, 29);
 		frame.getContentPane().add(btnNewButton_1);
 	

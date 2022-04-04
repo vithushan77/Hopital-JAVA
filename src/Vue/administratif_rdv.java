@@ -49,10 +49,10 @@ public class administratif_rdv {
 		ArrayList<String> liste = man.recupuser();
 		Object[] array = liste.toArray();
 		
-		ArrayList<String> liste2 = man.recupmedecin();
+		ArrayList<Object[]> liste2 = man.doctor();
 		Object[] array2 = liste2.toArray();
 		
-		ArrayList<String> liste3 = man.recupheure();
+		ArrayList<String> liste3 = man.heure();
 		Object[] array3 = liste3.toArray();
 		
 		JComboBox comboBox = new JComboBox(array);

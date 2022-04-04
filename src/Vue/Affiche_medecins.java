@@ -12,6 +12,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Manager.Manager;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Affiche_medecins {
 
@@ -21,8 +25,6 @@ public class Affiche_medecins {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Affiche_medecins window = new Affiche_medecins();
@@ -30,8 +32,6 @@ public class Affiche_medecins {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-		});
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class Affiche_medecins {
 		frame.getContentPane().setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(84, 88, 527, 281);
+		scrollPane.setBounds(84, 105, 527, 281);
 		frame.getContentPane().add(scrollPane);
 		table = new JTable();
 		DefaultTableModel tblModel = new DefaultTableModel(
@@ -82,7 +82,21 @@ public class Affiche_medecins {
 			tblModel.addRow(o.get(i));
 		}
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel = new JLabel("Les medecins");
+		lblNewLabel.setBounds(279, 27, 117, 34);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("Retour");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				admin ad = new admin();
+				ad.run();
+				frame.dispose();
+			}
+		});
+		btnNewButton.setBounds(19, 419, 117, 29);
+		frame.getContentPane().add(btnNewButton);
 	}
-
 }
 
