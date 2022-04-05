@@ -6,8 +6,8 @@ public class Patient extends Object{
 	private int id;
 	private String nomPatient;
 	private String prenomPatient;
-	private String telephone;
 	private String adresse;
+	private String telephone;
 	private String mutuelle;
 	private String SecuriteSocial;
 
