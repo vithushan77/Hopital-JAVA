@@ -101,6 +101,7 @@ public class Manager {
 				desc3 = resultatrecherche3.getString("etatCompte");
 			}
 			if(ut.getMdp().equals(desc) && desc3.equals("1")) {
+				//BCrypt.checkpw(ut.Mdp(), desc)
 				co2 = desc2;
 			}
 			else {
