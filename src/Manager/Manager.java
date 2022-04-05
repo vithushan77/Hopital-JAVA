@@ -116,7 +116,8 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ ajut.getMdp() +"', 'patient','1')";
+		String mdpHache = BCrypt.hashpw(ajut.getMdp(), BCrypt.gensalt(10));
+		String re3 = "INSERT INTO utilisateur (nom , prenom, mail, mdp, status, etatCompte) VALUES ('" + ajut.getNom() + "','"+ajut.getPrenom() +"','"+ajut.getMail() +"','"+ mdpHache +"', 'patient','1')";
 		System.out.println(re3);
 
 		try {
