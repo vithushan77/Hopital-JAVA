@@ -409,7 +409,7 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String re4 = "INSERT INTO patient (nomPatient, prenomPatient,adresse, mutuelle, telephone, securitesocial) VALUES ('" + dopt.getNomPatient() + "','" + dopt.getPrenomPatient() + "','" + dopt.getAdresse() + "',,'" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
+		String re4 = "INSERT INTO patient (nomPatient, prenomPatient,adresse, mutuelle, telephone, securitesocial) VALUES ('" + dopt.getNomPatient() + "','" + dopt.getPrenomPatient() + "','" + dopt.getAdresse() + "','" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
 		System.out.println(re4);
 
 		try {
