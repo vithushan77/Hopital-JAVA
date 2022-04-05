@@ -34,6 +34,7 @@ public class Manager {
 	private int r1;
 	private String desc;
 	private String desc2;
+	private String desc3;
 	private ResultSet r2;
 	private ResultSet r3;
 	public int exist;
@@ -92,7 +93,14 @@ public class Manager {
 				System.out.println(desc2);
 				System.out.println(ut.getMdp());
 			}
-			if(ut.getMdp().equals(desc)) {
+			String re4 = "SELECT etatCompte FROM utilisateur WHERE mail = '" + ut.getMail() + "'";
+			System.out.println(re4);
+			ResultSet resultatrecherche3 = stm.executeQuery(re4);
+			while(resultatrecherche3.next()){
+				// Aﬃchage des lignes qui comporte les caractères de "recherche"
+				desc3 = resultatrecherche3.getString("etatCompte");
+			}
+			if(ut.getMdp().equals(desc) && desc3.equals("1")) {
 				co2 = desc2;
 			}
 			else {

@@ -60,7 +60,7 @@ public class commandemedi {
 		frame.getContentPane().add(btnNewButton_1);
 		
 		textField = new JTextField();
-		textField.setBounds(179, 52, 130, 26);
+		textField.setBounds(148, 53, 130, 26);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -69,7 +69,7 @@ public class commandemedi {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setBounds(321, 52, 34, 26);
+		spinner.setBounds(305, 53, 34, 26);
 		frame.getContentPane().add(spinner);
 	
 		JButton btnNewButton_2 = new JButton("+");
@@ -77,7 +77,7 @@ public class commandemedi {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2.setBounds(382, 52, 40, 29);
+		btnNewButton_2.setBounds(365, 51, 57, 29);
 		frame.getContentPane().add(btnNewButton_2);
 	}
 }
