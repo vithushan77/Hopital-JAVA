@@ -57,13 +57,15 @@ public class Affiche_medecins {
 		DefaultTableModel tblModel = new DefaultTableModel(
 
 				new String[] {
-						"id","Nom", "specialité"
+						"id","Nom", "Prenom", "specialité"
 				},0
 				);
 		table = new JTable(tblModel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(135);
 		table.getColumnModel().getColumn(1).setPreferredWidth(164);
 		table.getColumnModel().getColumn(2).setPreferredWidth(104);
+		table.getColumnModel().getColumn(3).setPreferredWidth(135);
+
 		table.getSelectionModel().addListSelectionListener((ListSelectionListener) new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) { 
 

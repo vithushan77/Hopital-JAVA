@@ -97,6 +97,7 @@ public class affiche_medicaments {
 			public void actionPerformed(ActionEvent e) {
 				infirmiere ad = new infirmiere();
 				ad.run();
+				
 			}
 		});
 		btnNewButton.setBounds(19, 419, 117, 29);

@@ -409,7 +409,7 @@ public class Manager {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String re4 = "INSERT INTO patient (mutuelle, telephone, securitesocial) VALUES ('" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
+		String re4 = "INSERT INTO patient (nomPatient, prenomPatient,adresse, mutuelle, telephone, securitesocial) VALUES ('" + dopt.getNomPatient() + "','" + dopt.getPrenomPatient() + "','" + dopt.getAdresse() + "',,'" + dopt.getMutuelle() + "','"+dopt.getTelephone() +"','"+dopt.getSecuriteSocial() +"')";
 		System.out.println(re4);
 
 		try {
@@ -617,7 +617,7 @@ public class Manager {
 		catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		String sql= "SELECT id, nom FROM medecin";
+		String sql= "SELECT * FROM medecins";
 		System.out.println(sql);
 		ArrayList<String>listemed = new ArrayList<>();
 		try {
@@ -1010,17 +1010,18 @@ public ArrayList<Object[]> doctor(){
 	catch (SQLException e1) {
 		e1.printStackTrace();
 	}
-	String sql= "SELECT * FROM medecin";
+	String sql= "SELECT * FROM medecins";
 	ResultSet res;
 	try {
 		res = stm.executeQuery(sql);
 		while(res.next()) {
 			int id = res.getInt("id");
 			String nom = res.getString("nom");
-			String specialité = res.getString("specialité");
+			String prenom = res.getString("prenom");
+			String specialite = res.getString("specialite");
 
 
-			Object[] data = {id, nom, specialité};
+			Object[] data = {id, nom,prenom, specialite};
 			Object doctor;
 			doctors.add(data);
 		}

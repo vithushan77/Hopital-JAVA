@@ -45,5 +45,10 @@ public class medecins {
 		this.specialite = specialite;
 	}
 	
+	@Override
+	public String toString() {
+		return this.id +" Dr." + nom + " " + prenom + "";
+	}
+	
 	
 }
