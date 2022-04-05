@@ -39,19 +39,7 @@ public class infirmiere {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Traitement");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				medicaments tra = new medicaments();
-				tra.run();
-				frame.dispose();
-				
-			}
-		});
-		btnNewButton.setBounds(218, 6, 199, 42);
-		frame.getContentPane().add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("chambre");
+		JButton btnNewButton_1 = new JButton("Chambre");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chambrepati chmpat = new chambrepati();
@@ -59,7 +47,7 @@ public class infirmiere {
 				frame.dispose();
 			}
 		});
-		btnNewButton_1.setBounds(218, 60, 199, 42);
+		btnNewButton_1.setBounds(110, 60, 199, 42);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Commande");
@@ -71,12 +59,20 @@ public class infirmiere {
 				
 			}
 		});
-		btnNewButton_2.setBounds(218, 122, 203, 42);
+		btnNewButton_2.setBounds(106, 128, 203, 42);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Médicament");
-		btnNewButton_3.setBounds(224, 189, 193, 42);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				affiche_medicaments affmed = new affiche_medicaments();
+				affmed.run();
+				frame.dispose();
+			}
+		});
+		btnNewButton_3.setBounds(110, 203, 199, 42);
 		frame.getContentPane().add(btnNewButton_3);
+	
 		
 		JButton btnNewButton_4 = new JButton("Déconnexion");
 		btnNewButton_4.addActionListener(new ActionListener() {

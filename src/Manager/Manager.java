@@ -48,9 +48,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="";
+		String password="root";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -1033,6 +1033,42 @@ public ArrayList<Object[]> doctor(){
 
 
 	return doctors;
+
+}
+public ArrayList<Object[]> prescription(){
+	Connection co_bdd = this.connexionbdd();
+	java.sql.Statement stm = null;
+
+	ArrayList<Object[]> prescriptions = new ArrayList<>();
+	try {
+		stm = co_bdd.createStatement();
+	}
+	catch (SQLException e1) {
+		e1.printStackTrace();
+	}
+	String sql= "SELECT * FROM medicaments";
+	ResultSet res;
+	try {
+		res = stm.executeQuery(sql);
+		while(res.next()) {
+			int id = res.getInt("id");
+			String nomMedicament = res.getString("nomMedicament");
+			String quantite = res.getString("quantite");
+			String toxicite = res.getString("toxicite");
+
+			Object[] data = {id, nomMedicament, quantite,toxicite};
+			Object doctor;
+			prescriptions.add(data);
+		}
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+
+
+	return prescriptions;
 
 }
 	}
