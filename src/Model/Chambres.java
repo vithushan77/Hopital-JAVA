@@ -4,12 +4,12 @@ public class Chambres {
 
 	private int id;
 	private int numeroChambre;
-	private String choix;
+	private String optn;
 
-	public Chambres(int id, int numeroChambre, String choix) {
+	public Chambres(int id, int numeroChambre, String optn) {
 		this.id = id;
 		this.numeroChambre = numeroChambre;
-		this.choix= choix;
+		this.optn= optn;
 	}
 
 	public int getId() {
@@ -29,14 +29,14 @@ public class Chambres {
 	}
 
 	public String getChoix() {
-		return choix;
+		return optn;
 	}
 
-	public void setChoix(String choix) {
-		this.choix = choix;
+	public void setChoix(String optn) {
+		this.optn = optn;
 	}
 	public String toString() {
-		return  this.id+ "N° " + numeroChambre + "  Contient " + choix + "";
+		return  this.id+ "N° " + numeroChambre + "  Contient " + optn + "";
 	}
 
 

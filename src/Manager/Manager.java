@@ -671,7 +671,7 @@ public class Manager {
 		}
 		String sql= "SELECT * FROM hospitalisation \n"
 				+ "INNER JOIN chambres on hospitalisation.id_chambre = chambres.id "
-				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id INNER JOIN medicaments on hospitalisation.id_medicament = medicaments.id";
+				+ "INNER JOIN patient on hospitalisation.id_patient = patient.id INNER JOIN medicaments on hospitalisation.id_medicaments = medicaments.id";
 
 
 		ResultSet res;
@@ -679,14 +679,14 @@ public class Manager {
 			res = stm.executeQuery(sql);
 			while(res.next()) {
 				int id = res.getInt("id");
-				String Nom = res.getString("Nom");
-				String Prenom = res.getString("Prenom");
+				String nomPatient = res.getString("nomPatient");
+				String prenomPatient = res.getString("prenomPatient");
 				int numeroChambre = res.getInt("numeroChambre");
-				String choix = res.getString("choix");
+				String optn = res.getString("optn");
 				String nomMedicament = res.getString("nomMedicament");
 
 
-				Object[] data = {id, Nom, Prenom,numeroChambre,choix,nomMedicament};
+				Object[] data = {id, nomPatient, prenomPatient,numeroChambre,optn,nomMedicament};
 				Object hospitalisation;
 				hospitalisations.add(data);
 			}
@@ -721,12 +721,12 @@ public class Manager {
 			while(resultatrecherchepati.next()){
 				listepati.add(new Patient(
 						resultatrecherchepati.getInt("id"),
-						resultatrecherchepati.getString("Nom"),
-						resultatrecherchepati.getString("Prenom"),
-						resultatrecherchepati.getString("Nom"),
-						resultatrecherchepati.getString("Nom"),
-						sql,
-						sql));
+						resultatrecherchepati.getString("nomPatient"),
+						resultatrecherchepati.getString("prenomPatient"),
+						resultatrecherchepati.getString("telephone"),
+						resultatrecherchepati.getString("adresse"),
+						resultatrecherchepati.getString("mutuelle"),
+						resultatrecherchepati.getString("SecuriteSocial")));
 				//listepati.add(resultatrecherchepati.getString("Nom"));
 
 			}
@@ -754,7 +754,7 @@ public class Manager {
 				listecham.add(new Chambres(
 						resultatrecherchechamb.getInt("id"),
 						resultatrecherchechamb.getInt("numeroChambre"),
-						resultatrecherchechamb.getString("choix")
+						resultatrecherchechamb.getString("optn")
 						));
 				//listepati.add(resultatrecherchepati.getString("Nom"));
 
@@ -785,7 +785,7 @@ public class Manager {
 			System.out.println("Le Patient séléctionner est deja assigner dans une chambre");
 		} else {
 
-			String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre, id_medicament) VALUES (null,"+i+ ", "+j +","+l+")";
+			String sql= "INSERT INTO hospitalisation (id, id_patient, id_chambre, id_medicaments) VALUES (null,"+i+ ", "+j +","+l+")";
 			System.out.println(sql);
 			try {
 				r1 = stm1.executeUpdate(sql);

@@ -95,7 +95,7 @@ public class affiche_medicaments {
 		JButton btnNewButton = new JButton("Retour");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				admin ad = new admin();
+				infirmiere ad = new infirmiere();
 				ad.run();
 			}
 		});

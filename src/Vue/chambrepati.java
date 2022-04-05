@@ -30,11 +30,7 @@ public class chambrepati {
 	private JTable table;
 	/**
 	 * Launch the application.
-	 */
-	//public static void main(String[] args) {
-		//EventQueue.invokeLater(new Runnable() {
-
-	
+	 */	
 			public void run() {
 
 				try {
@@ -43,9 +39,7 @@ public class chambrepati {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-		//	}
 			
-		//});
 	}
 
 	/**
@@ -135,13 +129,14 @@ public class chambrepati {
 			public void actionPerformed(ActionEvent e) {
 				Patient selectValue = (Patient) comboBox.getSelectedItem();
 				Chambres selectValue1 = (Chambres) comboBox_1.getSelectedItem();
-				Medicaments selectValue2 = (Medicaments) comboBox_1.getSelectedItem();
+				Medicaments selectValue2 = (Medicaments) comboBox_2.getSelectedItem();
 
 				selectValue.getId();
 				
 				Manager man = new Manager();
 				try {
 					man.ajouthospit(selectValue.getId(),selectValue1.getId(),selectValue2.getId());
+					frame.repaint();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -175,3 +170,4 @@ public class chambrepati {
 		
 	}
 }
+

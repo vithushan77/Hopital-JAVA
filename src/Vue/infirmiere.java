@@ -1,5 +1,6 @@
 package Vue;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -35,7 +36,9 @@ public class infirmiere {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		
 		frame.setBounds(100, 100, 450, 300);
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
