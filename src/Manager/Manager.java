@@ -47,9 +47,9 @@ public class Manager {
 
 	public Connection connexionbdd (){
 		Connection cnx = null;
-		String url="jdbc:mysql://localhost:8889/hopital_java?serverTimezone=UTC";
+		String url="jdbc:mysql://localhost:3306/hopital_java?serverTimezone=UTC";
 		String user="root";
-		String password="root";
+		String password="";
 		try {
 			cnx = DriverManager.getConnection(url,user, password);
 			System.out.println("Etat de la connexion : ");
@@ -830,6 +830,13 @@ public class Manager {
 	return utilisateurs;
 
 	}
+	
+	public void SupprimerProfilAdmin(String mail) throws SQLException {
+		String sql = "DELETE FROM utilisateur WHERE mail = ?";
+		PreparedStatement pstm = this.connexionbdd().prepareStatement(sql);
+		pstm.setString(1, mail);
+		pstm.execute();
+	}
 
 	public void inscriptionadmin(Administrateur adm){
 		Connection co_bdd = this.connexionbdd();
@@ -956,10 +963,11 @@ public class Manager {
 
 		String sql = "UPDATE utilisateur SET etatCompte = ? WHERE mail = ?";
 		Object pstm = this.connexionbdd().prepareStatement(sql);
+		System.out.println(sql);
+		System.out.println(mail);
 		((PreparedStatement) pstm).setInt(1, 0);
 		((PreparedStatement) pstm).setString(2, mail);
 		((PreparedStatement) pstm).execute();
-		System.out.println("DESACTIVER");
 	}
 
 public void updateProfil(String mail, String motdepasse, String nom, String prenom, Object status) throws SQLException {

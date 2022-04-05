@@ -169,6 +169,15 @@ public class VueUtilisateurs {
 		frame.getContentPane().add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					String mail2 = textField_3.getText();
+					Manager ma = new Manager();
+					ma.SupprimerProfilAdmin(mail2);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 				Utilisateur_vue cra = new Utilisateur_vue();
 				cra.run();
